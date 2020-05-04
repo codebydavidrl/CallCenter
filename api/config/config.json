@@ -1,0 +1,8 @@
+{
+  "files": {},
+  "mySqlConecction": {
+    "server": "localhost",
+    "user": "root",
+    "password": ""
+  }
+}
