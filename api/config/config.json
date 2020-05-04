@@ -1,8 +1,11 @@
 {
-  "files": {},
-  "mySqlConecction": {
-    "server": "localhost",
+  "files": {
+    "userPhotos":"http://localhost/CALLCENTER2020/api/users/"
+  },
+  "mySqlConnection": {
+    "server": "localHost",
     "user": "root",
+    "database": "callcenter2020",
     "password": ""
   }
 }
