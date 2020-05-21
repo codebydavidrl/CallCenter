@@ -1,20 +1,27 @@
 <?php
-require_once('models/user.php');
-//GET
-  if($_SERVER['REQUEST_METHOD'] == 'GET'){
-    if($parameters == ''){
-      //get all
-      echo json_encode(array(
-        'status'=>0,
-        'users'=>json_decode(User::getAllToJson())
-      ));
-
+//require files
+    require_once('models/user.php');
+    //GET
+    if ($_SERVER['REQUEST_METHOD']== 'GET') {
+        
+        if ($parameters=='') {
+            //get all
+            echo json_encode(array(
+                'status'=>0,
+                'users'=>json_decode(User::getAlltoJson())
+            ));
+        }
     }
-  }
-//POST
-  if($_SERVER['REQUEST_METHOD'] == 'POST'){}
-//PUT
-  if($_SERVER['REQUEST_METHOD'] == 'PUT'){}
-//DELETE
-  if($_SERVER['REQUEST_METHOD'] == 'DELETE'){}
+    //post
+    if ($_SERVER['REQUEST_METHOD']=='POST') {
+        
+    }
+    //put
+    if ($_SERVER['REQUEST_METHOD']=='PUT') {
+        
+    }
+    //delete
+    if ($_SERVER['REQUEST_METHOD']=='DELETE') {
+        
+    }
 ?>
