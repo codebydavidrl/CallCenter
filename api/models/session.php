@@ -43,7 +43,7 @@
 
         //class methods
         public static function getActiveSessions(){
-
+            
         }
         public static function getActiveSessionsToJson(){
             

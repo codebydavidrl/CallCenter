@@ -1,0 +1,255 @@
+body {
+    background-color: #333;
+    margin: 0px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+header,
+#content,
+footer,
+#hamburger,
+#logo {
+    position: relative;
+    float: left;
+    width: 100%;
+}
+header {
+    background-color: #222;
+}
+nav {
+    position: absolute;
+    top: 60px;
+    left: 0px;
+    width: 200px;
+    height: 400px;
+    z-index: 9999; /*To move on top of everything*/
+    background-color: #333;
+    display: none;  
+}
+.menu {
+    position: relative;
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    width: calc(100% - 10px);
+    height: 40px;
+    margin: 5px;
+    cursor: pointer;
+}
+/*:hover when the cursor is on top of the element*/
+.menu:hover {
+    background-color: #444444;
+}
+.menu img {
+    height: 20px;
+    margin: 5px;
+}
+.menu label {
+    font-size: 10pt;
+    color: #fff;
+    margin: 5px;
+}
+#content {
+    background-color: #dddddd;
+    align-items: center;
+}
+#hamburger {
+    width: 32px;
+    height: 32px;
+    margin: 14px;
+}
+#hamburger img {
+    cursor: pointer;
+}
+#logo {
+    width: 120px;
+    height: 40px;
+    margin: 10px;
+}
+#logo img {
+    height: 100%;
+}
+#user {
+    position: relative;
+    float: right;
+    display: flex;
+    align-items: center;
+    height: 60px;
+    margin: 0px;
+    padding: 0;
+}
+.userphoto {
+    width: 40px;
+    height: 40px;
+    margin: 10px;
+    border-radius: 20px;
+}
+
+.settingphoto,
+.logoutphot {
+    width: 40px;
+    height: 40px;
+    margin: 10px;
+}
+.kpi {
+    width: calc(33% - 20px);
+    margin: 10px;
+}
+.kpi,
+.kpititle {
+    position: relative;
+    float: left;
+} 
+
+.kpititle {
+    height: 120px;
+    display: flex;
+    justify-content: center; /*horizontal alignment*/
+    align-items: center; /*vertical alignment*/
+    background-color: #ccc;
+    height: 50px;
+    width: 100%;
+    font-size: 16pt;
+    color: #ffffff;
+}
+.kpi-content{ 
+    width: 100%;
+    height: 150px;
+    display: flex;
+}
+.kpi-content-div{
+    width: calc(33.3% - 1PX);
+    /* border: 1px solid #ccc;  */
+    height: 100%;
+}
+
+/*  Title and content of items*/
+.fas{
+    width: 100%;
+    height: 100%;
+    font-size: 50pt;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
+.full-width{
+    width: calc(100% - 1rem);
+    margin: 1rem; 
+    color: #ccc;
+    display: flex;
+    font-size: 20pt;
+    justify-content: center;
+}
+.title-card{
+    width: 100%; 
+    height: 35%;
+    font-size: 12pt;
+}
+.content-card{
+    width: 100%;
+    height: 65%; 
+    font-size: 22pt;
+}
+
+.title-card,.content-card{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    color: #aaa;
+}
+/* section outsidetemp*/
+
+.empty {
+    width: calc(50% - 20px);
+    margin: 10px;
+}
+.charttitle,
+.chartvalue,
+.empty {
+    position: relative;
+    float: left;
+}
+
+
+.charttitle,
+.chartvalue {
+    display: flex;
+    justify-content: center; /*horizontal alignment*/
+    align-items: center;
+    width: 100%;
+}
+
+.charttitle {
+    height: 50px;
+    background: #666666;
+    font-size: 16pt;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.chartvalue {
+    height: 200px;
+    background: #fff;
+    font-size: 18pt;
+}
+
+/*    svg   */
+svg {
+    position: relative;
+    float: left;
+    width: 100%;
+    height: 100%;
+}
+.svgtitle {
+    font-size: 12pt;
+    fill: #777;
+    text-anchor: middle;
+}
+.svgaxisline {
+    stroke: #aaaaaa;
+    stroke-width: 1px;
+}
+.svgyaxislabel {
+    font-size: 8pt;
+    fill: #111111;
+    text-anchor: end;
+}
+.svgxaxislabel {
+    font-size: 8pt;
+    fill: #111111;
+    text-anchor: center;
+}
+.svgcolumyesterday {
+    fill: #4caf50;
+    stroke: #4caf50;
+    stroke-width: 1px;
+}
+.svgcolumtoday {
+    fill: #1b5e20;
+    stroke: #1b5e20;
+    stroke-width: 1px;
+}
+ 
+/*media queries*/
+
+/* Tablet*/
+@media only screen and (max-width: 1024px) {
+    .kpi {
+        width: calc(33.3% - 20px);
+    }
+    .empty {
+        width: calc(100% - 20px);
+    }
+}
+/* smartphone*/
+@media only screen and (max-width: 640px) {
+    .kpi {
+        width: calc(100% - 20px);
+    }
+    .empty1 {
+        height: 200%;
+    }
+}

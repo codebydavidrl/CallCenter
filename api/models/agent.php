@@ -48,8 +48,6 @@
                 if($command->fetch()) {
                     //pass tha values of the fields to the attributes
                     $this->id = $id;
-                    
-
                     $this->name = $name;
                     $this->photo = $photo;//add item to list
                     $this->pin = $pin;
@@ -110,6 +108,32 @@
                 array_push($jsonArray, json_decode($item->toJson()));
             }
             return json_encode($jsonArray); // return JSON array
+        }
+
+        public static function getActiveAgentsByHour(){
+            $data = array();
+            $now = new DateTime();
+            $hourNow= $now->format('H');
+            $hours = array(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23);
+            foreach ($hours as $hour) { 
+                // if hour query is later than now
+                if($hour <=  $hourNow ){
+                    $connection = MySqlConnection::getConnection();//get connection
+                    $query = 'select count(*) from sessions where date(startdatetime) = curdate() and hour(startdatetime) <= ? ;';//query
+                    $command = $connection->prepare($query);//prepare statement
+                    $command->bind_param('i',$hour);
+                    $command->execute();//execute
+                    $command->bind_result($result);//bind results
+                    //fetch data
+                    if($command->fetch())
+                        //result found 
+                        array_push($data,doubleval($result));
+                }else
+                //not result
+                array_push($data,0); 
+            } 
+
+            return $data;
         }
     }
 ?>

@@ -6,6 +6,9 @@
     header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
     //request url
     $requestUri = substr($_SERVER['REQUEST_URI'], strlen(dirname($_SERVER['PHP_SELF'])));
+    //set default time zone 
+    date_default_timezone_set ( 'America/Tijuana');
+
 
     
 

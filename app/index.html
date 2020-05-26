@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!--title-->
+        <title>Dashboard</title>
+        <!--javascript-->
+        <script src="js/fontawesome/solid.js"></script>
+        <script src="js/menu.js"></script>
+        <script src="js/main.js"></script>
+        <!--stylesheets-->
+        <link href="css/menu.css" rel="stylesheet" />
+        <link href="css/fontawesome/fontawesome.css" rel="stylesheet" />
+        <link href="css/fontawesome/solid.css" rel="stylesheet" />
+        <meta charset="UTF-8" />
+        <!--For responsive Web-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!--For -->
+        <link rel="stylesheet" href="css/style.css" />
+        <!-- hightcharts -->
+        <script src="js/highcharts.js"></script>
+    </head>
+    <body onload="init()">
+        <!--Header-->
+        <header>
+            <div id="hamburger"></div>
+            <div id="logo">
+                <!-- Logo in here -->
+                Logo
+            </div>
+            <div id="user"></div>
+        </header>
+
+        <!--Menu-->
+        <nav id="nav"></nav>
+
+        <!--Content-->
+        <div id="content">
+            <div class="full-width">Now</div>
+            <div id="outsidetemp" class="kpi">
+                <div class="kpititle">Agents</div>
+                <div class="kpi-content">
+                    <div class="kpi-content-div kpi-logo">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="kpi-content-div">
+                        <div class="title-card">Active</div>
+                        <div class="content-card">98</div>
+                    </div>
+                    <div class="kpi-content-div">
+                        <div class="title-card">Avilable</div>
+                        <div class="content-card">20</div>
+                    </div>
+                </div>
+            </div>
+            <div id="insidetemp" class="kpi">
+                <div class="kpititle">Calls</div>
+                <div class="kpi-content">
+                    <div class="kpi-content-div kpi-logo"></div>
+                    <div class="kpi-content-div">
+                        <div class="title-card">Active</div>
+                        <div class="content-card">50</div>
+                    </div>
+                    <div class="kpi-content-div">
+                        <div class="title-card">On Queue</div>
+                        <div class="content-card">30</div>
+                    </div>
+                </div>
+            </div>
+            <div id="humidity" class="kpi">
+                <div class="kpititle">Average Time</div>
+                <div class="kpi-content">
+                    <div class="kpi-content-div kpi-logo"></div>
+                    <div class="kpi-content-div">
+                        <div class="title-card">Handle</div>
+                        <div class="content-card">99</div>
+                    </div>
+                    <div class="kpi-content-div">
+                        <div class="title-card">Wait</div>
+                        <div class="content-card">99</div>
+                    </div>
+                </div>
+            </div>
+            <div class="full-width">Today</div>
+
+            <div class="empty">
+                <div class="charttitle">Agents</div>
+                <div id="chart-agents" class="chartvalue"></div>
+            </div>
+
+            <div class="empty">
+                <div class="charttitle">Calls</div>
+                <div id="chart-calls" class="chartvalue"></div>
+            </div>
+            <div class="empty">
+                <div class="charttitle">Average Handle Time</div>
+                <div id="chart-avg-HandTime" class="chartvalue"></div>
+            </div>
+            <div class="empty">
+                <div class="charttitle">Average Wait Time</div>
+                <div class="chartvalue" id="chart-avg-WaitTime"></div>
+            </div>
+        </div>
+
+        <footer>footer</footer>
+    </body>
+    <script>
+        init2();
+    </script>
+</html>
