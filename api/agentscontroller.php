@@ -6,26 +6,34 @@
 
     if ($_SERVER['REQUEST_METHOD']=='GET') {
         # code...
-        if ($parameters!='') {
-            # code...
-            try {
-                $a=new Agent($parameters);
+        if ($action =='') {
+            if($parameters == ''){
+                //get all
                 echo json_encode(array(
-                    'status'=>0,
-                    'agent'=>json_decode($a->toJson())
-                ));
-            } catch (RecordNotFoundException $ex) {
-                //throw $th;
+                    "status"=>0,
+                    "agents"=>json_decode(Agent::getAllToJson())
+                )); 
+            }else{
+                $agent = new Agent($parameters);
                 echo json_encode(array(
-                    'status'=>1,
-                    'errorMessage'=> $ex->getMessage()
-                ));
+                    "status"=>0,
+                    "agent"=>json_decode($agent->ToJson())
+                )); 
+
             }
         }else {
-            echo json_encode(array(
-                'status'=>0,
-                'agents'=>json_decode(Agent::getAllToJson())
-            ));
+             if($action == 'available'){
+                echo json_encode(array(
+                    "status"=>0,
+                    "availableAgents"=>json_decode(Agent::getAvailableAgentsToJson())
+                )); 
+             }
+             if($action == 'active'){
+                echo json_encode(array(
+                    "status"=>0,
+                    "activeAgents"=>json_decode(Agent::getActiveAgentsToJson())
+                )); 
+             }
         }
     }
 ?>              

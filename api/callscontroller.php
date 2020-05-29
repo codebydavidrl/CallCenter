@@ -8,10 +8,17 @@
         if($action == ''){
             //get all
             if($parameters == ''){
-                echo 'get all the calls';
-            }
-            else{
-                echo 'get one call';
+                //get today calls
+                echo json_encode(array(
+                    "status"=>0,
+                    "calls"=>json_decode(Call::getAllToJson())
+                ));
+            }else{
+                $call = new Call($parameters);
+                echo json_encode(array(
+                    "status"=>0,
+                    "call"=>json_decode($call->toJson)
+                ));
             }
         }
         //hourly totals
@@ -19,8 +26,12 @@
             echo 'get call totals by hour';
         }
         //dailytotals
-        if($action == 'dailytotals'){
-            echo 'get call totals by day';
+        if($action == 'today'){ 
+            //get today calls
+            echo json_encode(array(
+                "status"=>0,
+                "todayCalls"=>json_decode(Call::getAllTodayToJson())
+            )); 
         }
     }
     //Post
@@ -29,7 +40,8 @@
         if($action == 'receive'){
             echo Call::receive($parameters);
         }
-    }
-    //Put
-    //Delete
+        if($action == 'end'){
+            echo Call::end($parameters);
+        }
+    } 
 ?>

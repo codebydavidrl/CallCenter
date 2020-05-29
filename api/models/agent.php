@@ -135,5 +135,51 @@
 
             return $data;
         }
+
+        public static function getActiveAgents(){
+            $data = array();
+            $connection = MySqlConnection::getConnection();//get connection
+            $query = 'select a.id,a.name,a.photo,a.pin from sessions s join agents a on s.idAgent = a.id where date(startdatetime) = curdate()';//query
+            $command = $connection->prepare($query);//prepare statement 
+            $command->execute();//execute
+            $command->bind_result($id,$name,$photo,$pin);//bind results
+            //fetch data
+            while($command->fetch()){
+                //result found 
+                array_push($data,new Agent($id,$name,$photo,$pin));
+            }
+
+            return $data;
+        }
+        public static function getActiveAgentsToJson() {
+            $jsonArray = array(); //create JSON array
+            //reaqd items
+            foreach(self::getActiveAgents() as $item) {
+                array_push($jsonArray, json_decode($item->toJson()));
+            }
+            return json_encode($jsonArray); // return JSON array
+        }
+        public static function getAvailableAgents(){
+            $data = array();
+            $connection = MySqlConnection::getConnection();//get connection
+            $query = 'select a.id,a.name,a.photo,a.pin from sessions s join agents a on s.idAgent = a.id where date(startdatetime) = curdate() and s.status=1';//query
+            $command = $connection->prepare($query);//prepare statement 
+            $command->execute();//execute
+            $command->bind_result($id,$name,$photo,$pin);//bind results
+            //fetch data
+            while($command->fetch())
+                //result found 
+                array_push($data,new Agent($id,$name,$photo,$pin));
+
+            return $data;
+        }
+        public static function getAvailableAgentsToJson() {
+            $jsonArray = array(); //create JSON array
+            //reaqd items
+            foreach(self::getAvailableAgents() as $item) {
+                array_push($jsonArray, json_decode($item->toJson()));
+            }
+            return json_encode($jsonArray); // return JSON array
+        }
     }
 ?>
