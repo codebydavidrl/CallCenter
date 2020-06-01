@@ -5,7 +5,7 @@
     class Session{
         //attributes
         private $id;
-        private $agent;
+        private $agent ;
         private $workstation;
         private $startDateTime;
         private $endDateTime;
@@ -27,6 +27,16 @@
         public function __construct(){
             //get arguments
             $arguments=func_get_args();
+            //Empty one
+            if (func_num_args()== 0) { 
+                $this->id='';
+                $this->agent='';
+                $this->workstation='';
+                $this->startDateTime='';
+                $this->endDateTime='';
+                $this->status='';
+                $this->availableSince='';   
+            }
             if(func_num_args() == 1){
                 $connection = MySqlConnection::getConnection();//get connection
                 $query = 'select id,idAgent,idWorkstation,startdatetime,enddatetime,status,availableSince from sessions where id= ?;';//query
@@ -51,7 +61,6 @@
                 mysqli_stmt_close($command); //close command
                 $connection->close(); //close connection
             }
-
             //start session
             if (func_num_args()== 7) { 
                 $this->id=$arguments[0];
@@ -66,8 +75,13 @@
         //instance methods
         //represent the object in json format
         public function toJson(){
-            $agent = new Agent($this->agent);
-            $workstation = new Workstation($this->workstation);
+            if((isset($this->agent) && isset($this->workstation)) && ($this->agent != '' &&  $this->workstation != '')){
+                $agent = new Agent($this->agent);
+                $workstation = new Workstation($this->workstation);
+            }else{
+                $agent = new Agent();
+                $workstation = new Workstation();
+            }
 
             return json_encode(array(
                 "id"=>$this->id,
@@ -109,6 +123,7 @@
             return json_encode($jsonArray); // return JSON array
         }
 
+        
         //start session
         public static function start($agentid,$pin,$workstationid){
              //results
@@ -152,48 +167,10 @@
                     ));
                 }
             }
-        }
+        } 
+        //end session
+        public static function end($id){
 
-        //end call
-        public static function endcall($idSession){
-            //results
-            $results=array(
-                0=>'Call Ended',
-                1=>'Session id not logged',
-                999=>'Could not End call'
-            );
-            //procedire result
-            $procedureResult = 999;
-            //execute tored procedure
-            $connection = MySqlConnection:: getConnection();
-            //connection open 
-            if($connection){
-                //query
-                $query = 'call spEndCall('.$idSession.',@result); select @result;';
-                //execute
-                $dataSet = $connection->multi_query($query);
-                //check if there are results
-                if($dataSet){
-                    //loop thru result tables
-                    do{
-                        //get result
-                        if($result = $connection->store_result()){
-                            //loop thru rows
-                            while($row = $result->fetch_row()){
-                                //loop thru fields
-                                foreach($row as $field) $procedureResult = $field;
-                            }
-                        }
-                    }while($connection->next_result());
-                    //close connection
-                    $connection->close();
-                    //return result
-                    return json_encode(array(
-                        'status' => $procedureResult,
-                        'message' => $results[$procedureResult]
-                    ));
-                }
-            }
         }
     }
 ?>

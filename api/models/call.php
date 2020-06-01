@@ -58,6 +58,7 @@ class Call{
             $this->waitTime='';
             $this->handleTime='';
         }  
+        
         if(func_num_args() == 1){
             $connection = MySqlConnection::getConnection();//get connection
             $query = 'select id,phoneNumber,status,idSession,receiveddatetime,answereddatetime,enddatetime,waitTime,handleTime from calls where date(receiveddatetime) = curdate() and id=?';//query
@@ -83,6 +84,12 @@ class Call{
             mysqli_stmt_close($command); //close command
             $connection->close(); //close connection
         }
+        if (func_num_args()== 4) {
+            $this->id=$arguments[0];
+            $this->phone=$arguments[1];
+            $this->status=$arguments[2]; 
+            $this->receivedDateTime=$arguments[3];
+        }  
 
         if (func_num_args()==9) {
             $this->id=$arguments[0];
@@ -99,7 +106,11 @@ class Call{
     //instance methods
     //represent the object as string
     public function toJson(){
-        $session = new Session($this->session);
+        if(isset($this->session) && $this->session != ''){
+            $session = new Session($this->session);
+        }else{
+            $session = new Session();
+        }
             return json_encode(array(
                 'id'=>$this->id,
                 'phone'=>$this->phone,
@@ -113,7 +124,7 @@ class Call{
 
             ));
     }
-    //class methods
+     
     //receive call
     public static function receive($phoneNumber){
             //results
@@ -156,6 +167,49 @@ class Call{
                 }
             }
     }
+    //end call
+    public static function end($idSession){
+        //results
+        $results=array(
+            0=>'Call Ended',
+            1=>'Session id not logged',
+            999=>'Could not End call'
+        );
+        //procedire result
+        $procedureResult = 999;
+        //execute tored procedure
+        $connection = MySqlConnection:: getConnection();
+        //connection open 
+        if($connection){
+            //query
+            $query = 'call spEndCall('.$idSession.',@result); select @result;';
+            //execute
+            $dataSet = $connection->multi_query($query);
+            //check if there are results
+            if($dataSet){
+                //loop thru result tables
+                do{
+                    //get result
+                    if($result = $connection->store_result()){
+                        //loop thru rows
+                        while($row = $result->fetch_row()){
+                            //loop thru fields
+                            foreach($row as $field) $procedureResult = $field;
+                        }
+                    }
+                }while($connection->next_result());
+                //close connection
+                $connection->close();
+                //return result
+                return json_encode(array(
+                    'status' => $procedureResult,
+                    'message' => $results[$procedureResult]
+                ));
+            }
+        }
+    }
+
+                //Today section
     public static function getCallsByHour(){
             $data=array();//array
             $hours = array(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23);
@@ -216,7 +270,10 @@ class Call{
             }
             return $data;
     }
-    public static function getAllToday(){
+
+
+                //Class methods
+    public static function getTodayCalls(){
         $list=array();//array
         $query='select id,phoneNumber,status,idSession,receiveddatetime,answereddatetime,
         enddatetime,waitTime,handleTime from calls where date(receiveddatetime) = curdate();';//query
@@ -235,19 +292,46 @@ class Call{
 
         return $list;//return array
     }
-
-    public static function getAllTodayToJson() {
+    public static function getTodayCallsTojson() {
         $jsonArray = array(); //create JSON array
         //reaqd items
-        foreach(self::getAllToday() as $item) {
+        foreach(self::getTodayCalls() as $item) {
+            array_push($jsonArray, json_decode($item->toJson()));
+        }
+        return json_encode($jsonArray); // return JSON array
+    }  
+
+    
+    public static function getCallsOnQueue(){
+        $list=array();//array
+        $query='select id,phoneNumber,status,receiveddatetime from calls where date(receiveddatetime) = curdate() and status = 1;';//query
+        $connection= MySqlConnection::getConnection();
+        $command=$connection->prepare($query);
+        $command->bind_result($id,$phone,$status,$receivedDateTime);
+        $command->execute();
+
+        //read result
+        while ($command->fetch()) {
+            array_push($list,new Call($id,$phone,$status,$receivedDateTime));
+        }
+        mysqli_stmt_close($command);
+        $connection->Close();
+
+        return $list;//return array
+    }
+    public static function getCallsOnQueueToJson(){
+        $jsonArray = array(); //create JSON array
+        //reaqd items
+        foreach(self::getCallsOnQueue() as $item) {
             array_push($jsonArray, json_decode($item->toJson()));
         }
         return json_encode($jsonArray); // return JSON array
     }
-    public static function getAll(){
+
+
+    public static function getActiveCalls(){
         $list=array();//array
-        $query='select id,phoneNumber,status,idSession,receiveddatetime,answereddatetime,
-        enddatetime,waitTime,handleTime from calls';//query
+        $query='select id,phoneNumber,status,idSession,receiveddatetime,answereddatetime,enddatetime,waitTime,handleTime from calls where date(receiveddatetime) = curdate() and status = 2;';//query
         $connection= MySqlConnection::getConnection();
         $command=$connection->prepare($query);
         $command->bind_result($id,$phone,$status,$session,$receivedDateTime,$answerDateTime,$endDateTime,$waitTime,$handleTime);
@@ -256,18 +340,16 @@ class Call{
         //read result
         while ($command->fetch()) {
             array_push($list,new Call($id,$phone,$status,$session,$receivedDateTime,$answerDateTime,$endDateTime,$waitTime,$handleTime));
-            
         }
         mysqli_stmt_close($command);
         $connection->Close();
 
         return $list;//return array
     }
-
-    public static function getAllToJson() {
+    public static function getActiveCallsToJson(){
         $jsonArray = array(); //create JSON array
         //reaqd items
-        foreach(self::getAll() as $item) {
+        foreach(self::getActiveCalls() as $item) {
             array_push($jsonArray, json_decode($item->toJson()));
         }
         return json_encode($jsonArray); // return JSON array

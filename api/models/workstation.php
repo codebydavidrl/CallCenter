@@ -11,7 +11,6 @@ class WorkStation{
     
 
     //gettes and setters
-
     public function getId(){return $this->id;}
     public function setId($id){$this->id = $id;}
 
@@ -20,11 +19,9 @@ class WorkStation{
 
     public function getIpAddress(){return $this->ipAddress;}
     public function setIpAddress($ipAddress){$this->ipAddress = $ipAddress;}
-
     
    
     //constructor
-
     public function __construct(){
         //get arguments
         $arguments=func_get_args();

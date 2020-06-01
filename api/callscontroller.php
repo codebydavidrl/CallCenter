@@ -7,13 +7,7 @@
         //list
         if($action == ''){
             //get all
-            if($parameters == ''){
-                //get today calls
-                echo json_encode(array(
-                    "status"=>0,
-                    "calls"=>json_decode(Call::getAllToJson())
-                ));
-            }else{
+            if(!empty($parameters)){  
                 $call = new Call($parameters);
                 echo json_encode(array(
                     "status"=>0,
@@ -21,16 +15,29 @@
                 ));
             }
         }
-        //hourly totals
-        if($action == 'hourlytotal'){
-            echo 'get call totals by hour';
+        //calls on queue 
+        if($action == 'queue'){
+            //get today calls
+            echo json_encode(array(
+                "status"=>0,
+                "queue"=>json_decode(Call::getCallsOnQueueToJson())
+            ));
         }
-        //dailytotals
+        //calls active
+        if($action == 'active'){
+            //get today calls
+            echo json_encode(array(
+                "status"=>0,
+                "active"=>json_decode(Call::getActiveCallsToJson())
+            )); 
+            
+        }
+        //today calls
         if($action == 'today'){ 
             //get today calls
             echo json_encode(array(
                 "status"=>0,
-                "todayCalls"=>json_decode(Call::getAllTodayToJson())
+                "today"=>json_decode(Call::getTodayCallsTojson())
             )); 
         }
     }
