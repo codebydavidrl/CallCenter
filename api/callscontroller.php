@@ -1,6 +1,7 @@
 <?php
     //require files
-    require('models/call.php');
+    require_once('models/call.php');
+    require_once('config/json.php');
     //Get
     
     if($_SERVER['REQUEST_METHOD'] == 'GET'){
@@ -20,7 +21,7 @@
             //get today calls
             echo json_encode(array(
                 "status"=>0,
-                "queue"=>json_decode(Call::getCallsOnQueueToJson())
+                "queue"=>Json::listToArray(Call::getCallsOnQueue())
             ));
         }
         //calls active
@@ -28,7 +29,7 @@
             //get today calls
             echo json_encode(array(
                 "status"=>0,
-                "active"=>json_decode(Call::getActiveCallsToJson())
+                "active"=>Json::listToArray(Call::getActiveCalls())
             )); 
             
         }
@@ -37,7 +38,7 @@
             //get today calls
             echo json_encode(array(
                 "status"=>0,
-                "today"=>json_decode(Call::getTodayCallsTojson())
+                "today"=>Json::listToArray(Call::getTodayCalls())
             )); 
         }
     }

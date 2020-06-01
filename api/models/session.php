@@ -23,6 +23,8 @@
         public function getStatus(){return $this->status;}
         public function getAvailableSince(){return $this->availableSince;}
 
+        public function getStatusDescription(){}
+
         //constructor
         public function __construct(){
             //get arguments
@@ -87,10 +89,15 @@
                 "id"=>$this->id,
                 "agent"=>json_decode($agent->toJson()),
                 "workstation"=>json_decode($workstation->toJson()),
-                "startDateTime"=>$this->startDateTime,
-                "endDateTime"=>$this->endDateTime,
-                "status"=>$this->status,
-                "availableSince"=>$this->availableSince
+                "dateTime"=>array(
+                    "startDateTime"=>$this->startDateTime,
+                    "endDateTime"=>$this->endDateTime,
+                    "availableSince"=>$this->availableSince
+                ),
+                "status"=>array(
+                    "status"=>$this->status,
+                    "description"=>$this->getStatusDescription()
+                )
             ));
         }
 
@@ -113,16 +120,11 @@
             $connection->Close();
 
             return $list;//return array
-        }
-        public static function getAllToJson() {
-            $jsonArray = array(); //create JSON array
-            //reaqd items
-            foreach(self::getAll() as $item) {
-                array_push($jsonArray, json_decode($item->toJson()));
-            }
-            return json_encode($jsonArray); // return JSON array
-        }
+        } 
 
+        public static function getActiveSessions(){
+        
+        }
         
         //start session
         public static function start($agentid,$pin,$workstationid){
@@ -171,6 +173,48 @@
         //end session
         public static function end($id){
 
+        }
+
+        //end call
+        public static function endCall($idSession){
+            //results
+            $results=array(
+                0=>'Call Ended',
+                1=>'Session id not logged',
+                999=>'Could not End call'
+            );
+            //procedire result
+            $procedureResult = 999;
+            //execute tored procedure
+            $connection = MySqlConnection:: getConnection();
+            //connection open 
+            if($connection){
+                //query
+                $query = 'call spEndCall('.$idSession.',@result); select @result;';
+                //execute
+                $dataSet = $connection->multi_query($query);
+                //check if there are results
+                if($dataSet){
+                    //loop thru result tables
+                    do{
+                        //get result
+                        if($result = $connection->store_result()){
+                            //loop thru rows
+                            while($row = $result->fetch_row()){
+                                //loop thru fields
+                                foreach($row as $field) $procedureResult = $field;
+                            }
+                        }
+                    }while($connection->next_result());
+                    //close connection
+                    $connection->close();
+                    //return result
+                    return json_encode(array(
+                        'status' => $procedureResult,
+                        'message' => $results[$procedureResult]
+                    ));
+                }
+            }
         }
     }
 ?>

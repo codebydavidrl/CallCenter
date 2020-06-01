@@ -104,16 +104,7 @@
             $connection->Close();
     
             return $list;//return array
-        }
-    
-        public static function getAllToJson() {
-            $jsonArray = array(); //create JSON array
-            //reaqd items
-            foreach(self::getAll() as $item) {
-                array_push($jsonArray, json_decode($item->toJson()));
-            }
-            return json_encode($jsonArray); // return JSON array
-        }
+        } 
 
         public static function getActiveAgentsByHour(){
             $data = array();
@@ -155,15 +146,7 @@
             }
 
             return $data;
-        }
-        public static function getActiveAgentsToJson() {
-            $jsonArray = array(); //create JSON array
-            //reaqd items
-            foreach(self::getActiveAgents() as $item) {
-                array_push($jsonArray, json_decode($item->toJson()));
-            }
-            return json_encode($jsonArray); // return JSON array
-        }
+        } 
         public static function getAvailableAgents(){
             $data = array();
             $connection = MySqlConnection::getConnection();//get connection
@@ -177,14 +160,6 @@
                 array_push($data,new Agent($id,$name,$photo,$pin));
 
             return $data;
-        }
-        public static function getAvailableAgentsToJson() {
-            $jsonArray = array(); //create JSON array
-            //reaqd items
-            foreach(self::getAvailableAgents() as $item) {
-                array_push($jsonArray, json_decode($item->toJson()));
-            }
-            return json_encode($jsonArray); // return JSON array
-        }
+        } 
     }
 ?>

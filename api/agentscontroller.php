@@ -1,5 +1,6 @@
 <?php
     require_once('models/agent.php');
+    require_once('config/json.php');
     
 
     //method
@@ -11,7 +12,7 @@
                 //get all
                 echo json_encode(array(
                     "status"=>0,
-                    "agents"=>json_decode(Agent::getAllToJson())
+                    "agents"=>Json::listToArray(Agent::getAll())
                 )); 
             }else{
                 $agent = new Agent($parameters);
@@ -25,13 +26,13 @@
              if($action == 'available'){
                 echo json_encode(array(
                     "status"=>0,
-                    "availableAgents"=>json_decode(Agent::getAvailableAgentsToJson())
+                    "availableAgents"=>Json::listToArray(Agent::getAvailableAgents())
                 )); 
              }
              if($action == 'active'){
                 echo json_encode(array(
                     "status"=>0,
-                    "activeAgents"=>json_decode(Agent::getActiveAgentsToJson())
+                    "activeAgents"=>Json::listToArray(Agent::getActiveAgents())
                 )); 
              }
         }

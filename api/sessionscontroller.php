@@ -1,8 +1,11 @@
 <?php
     require_once('models/session.php');
+    require_once('config/json.php');
     if($_SERVER['REQUEST_METHOD']=='GET'){
         if(!empty($action)){
-            echo $action;
+            if($action == 'active'){
+
+            }
         }else{ 
             if(!empty($parameters)){
                 $session = new Session($parameters);
@@ -10,7 +13,7 @@
             }else{
                 //if there is not action
                 //Show all
-                echo Session::getAllToJson();
+                echo json_encode(Json::listToArray(Session::getAll()));
             }
             
         }
