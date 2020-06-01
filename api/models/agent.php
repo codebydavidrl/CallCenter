@@ -52,8 +52,13 @@
                     $this->photo = $photo;//add item to list
                     $this->pin = $pin;
                 }
-                else
+                else{
                     throw new RecordNotFoundException($arguments[0]);
+                    $this->id = '';
+                    $this->name = '';
+                    $this->photo = '';
+                    $this->pin = '';
+                }
                 mysqli_stmt_close($command); //close command
                 $connection->close(); //close connection
             }

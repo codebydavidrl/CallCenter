@@ -2,6 +2,8 @@
     require_once('mysqlconection.php');
     require_once(__DIR__.'/../config/config.php');
     require_once('exceptions/recordnotfoundexception.php');
+    require_once('session.php');
+
     
 class Call{
     //attributes
@@ -14,9 +16,32 @@ class Call{
     private $endDateTime;
     private $waitTime;
     private $handleTime;
-    //getter and setters
-    // function setId($id){$this->id=$id;}
-    // function getId(){ return $this->id;}
+    //getter and setters 
+    public function getId(){ return $this->id;}
+
+    public function getPhone(){return $this->phone;}
+	public function setPhone($phone){$this->phone = $phone;}
+
+	public function getStatus(){return $this->status;}
+	public function setStatus($status){$this->status = $status;}
+
+	public function getSession(){return $this->session;}
+	public function setSession($session){$this->session = $session;}
+
+	public function getReceivedDateTime(){return $this->receivedDateTime;}
+	public function setReceivedDateTime($receivedDateTime){$this->receivedDateTime = $receivedDateTime;}
+
+	public function getAnsweredDateTime(){return $this->answeredDateTime;}
+	public function setAnsweredDateTime($answeredDateTime){$this->answeredDateTime = $answeredDateTime;}
+
+	public function getEndDateTime(){return $this->endDateTime;}
+	public function setEndDateTime($endDateTime){$this->endDateTime = $endDateTime;}
+
+	public function getWaitTime(){return $this->waitTime;}
+	public function setWaitTime($waitTime){$this->waitTime = $waitTime;}
+
+	public function getHandleTime(){return $this->handleTime;}
+	public function setHandleTime($handleTime){$this->handleTime = $handleTime;}
     //constructor
     public function __construct(){
         //get arguments
@@ -74,11 +99,12 @@ class Call{
     //instance methods
     //represent the object as string
     public function toJson(){
+        $session = new Session($this->session);
             return json_encode(array(
                 'id'=>$this->id,
                 'phone'=>$this->phone,
                 'status'=>$this->status,
-                'session'=>$this->session,
+                'session'=>json_decode($session->toJson()),
                 'receivedDateTime'=>$this->receivedDateTime,
                 'answeredDateTime'=>$this->answeredDateTime,
                 'endDateTime'=>$this->endDateTime,

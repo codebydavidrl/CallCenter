@@ -48,12 +48,15 @@ class WorkStation{
                 //pass tha values of the fields to the attributes
                 $this->id = $id;
                 $this->description = $description;
-
                 $this->ipAddress = $ipAddress;
                 
             }
-            else
+            else{
                 throw new RecordNotFoundException($arguments[0]);
+                $this->id = '';
+                $this->description = '';
+                $this->ipAddress = '';
+            }
             mysqli_stmt_close($command); //close command
             $connection->close(); //close connection
         }
@@ -63,7 +66,6 @@ class WorkStation{
             $this->description=$arguments[1];
             $this->ipAddress=$arguments[2];
             
-
         }
 
 

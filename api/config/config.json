@@ -1,12 +1,11 @@
 {
     "files": {
-        "userPhotos": "http://localhost:8080/5tocuatri/Sample001/api/users/"
+        "userPhotos": "http://localhost/CALLCENTER2020/api/users/"
     },
     "mySqlConnection": {
-        "server": "localhost",
+        "server": "localHost",
         "database": "callcenter2020",
         "user": "root",
         "password": ""
     }
-
 }
