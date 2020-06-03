@@ -31,11 +31,11 @@
     background-color: #eee;
 }
 #nav{
-    width: 60%; 
+    width: 200px; 
     display: flex;
     flex-wrap: wrap;
     z-index: 9999;
-    position: fixed;
+    /* position: fixed; */
     background-color: #ccc;
 } 
 .menu-item{

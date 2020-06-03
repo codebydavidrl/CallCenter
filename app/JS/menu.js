@@ -66,7 +66,7 @@ var userInfo = {
 let toggle = false;
 const BODY_ID = "body";
 
-function init() {
+function initMenu() {
     showMenu();
     showInfoUser();
 }
@@ -87,7 +87,7 @@ function showMenu() {
     userInfo.menuOptions.forEach((option) => {
         menu.insertAdjacentHTML(
             "beforeend",
-            `<i style='margin-left: 1rem;' class="fas fa-${option.icon} icon ${userInfo.theme}-icon menu-item"> ${option.title[language]}</i>  `
+            `<i style='margin-left: 1rem;' class="fas fa-${option.icon} icon ${userInfo.theme}-icon menu-item"> &nbsp ${option.title[language]}</i>  `
         );
     });
     //menu event listener
