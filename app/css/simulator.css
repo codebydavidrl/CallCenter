@@ -1,0 +1,44 @@
+#content {
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+}
+
+/* Table */
+.table-container {
+    width: 50%;
+    height: 300px;
+}
+
+.scrollable {
+    overflow: scroll;
+    height: 80%;
+}
+
+td,
+th {
+    text-align: center;
+}
+
+/* Buttons */
+
+.btns-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 150px;
+    padding: 2rem;
+}
+.stop-container,.start-container{
+    margin: .2rem; 
+    width: 100%;
+}
+.stop-container button,.start-container button{
+    font-size: 40px;
+    width: 100%; 
+}
+
+.stop-container button i{
+    font-size: 35px;
+    color: #bbb;
+}
