@@ -29,16 +29,19 @@ th {
     width: 150px;
     padding: 2rem;
 }
-.stop-container,.start-container{
+.stop-container,.start-container,.status-container{
     margin: .2rem; 
     width: 100%;
 }
-.stop-container button,.start-container button{
+.stop-container button,.start-container button,.status-container button{
     font-size: 40px;
     width: 100%; 
 }
 
-.stop-container button i{
+.status-container button i{
     font-size: 35px;
-    color: #bbb;
+    color: rgb(177, 4, 4);
+}
+button .fas{
+    justify-content: center;
 }
