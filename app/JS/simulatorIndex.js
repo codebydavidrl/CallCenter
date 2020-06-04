@@ -12,14 +12,19 @@ function init() {
     //Get buttons
     const btnStart = document.getElementById("start-simulation");
     const btnStop = document.getElementById("stop-simulation");
+    const lightStatus = document.getElementById("light-status");
 
     //add listeners
     btnStart.addEventListener("click", () => {
         //run simulator
-        let activated = Simulator.run();
+        Simulator.run();
+        lightStatus.style.color = "#66BB6A";
+        lightStatus.title="On"
     });
     btnStop.addEventListener("click", () => {
         //run simulator
-        let stopped = Simulator.stop();
+        Simulator.stop();
+        lightStatus.style.color = "#F44336";
+        lightStatus.title="Off"
     });
 }

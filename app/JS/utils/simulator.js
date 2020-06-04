@@ -129,19 +129,13 @@ class CallSimulator {
 
     run() {
         console.log("Running simulator...");
-        if (this.setCallTimeout()) {
-            return true;
-        } else {
-            return false;
-        }
+        this.setCallTimeout();
+        return true;
     }
     stop() {
         console.log("Simulator was stopped.");
-        if (clearTimeout(this.timeout)) {
-            return true;
-        } else {
-            return false;
-        }
+        clearTimeout(this.timeout);
+        return true;
     }
     getTimeInterval() {
         //return a random number between min and max
