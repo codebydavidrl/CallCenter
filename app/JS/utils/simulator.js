@@ -51,18 +51,8 @@ class CallSimulator {
         }
     }
     generateCellNumber() {
-        const number = Math.floor(Math.random() * 10000000);
-        switch (number.toString().length) {
-            case 5:
-                this.generateCellNumber();
-                break;
-            case 6:
-                this.cellphone = `6648${number}`;
-                break;
-            case 7:
-                this.cellphone = `664${number}`;
-                break;
-        }
+        const number =  Math.floor(Math.random() * (6649999999 - 6640000000)) + 6640000000;
+        return number;
     }
     getHour() {
         const date = new Date();
