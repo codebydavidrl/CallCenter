@@ -1,8 +1,8 @@
-var hours = []; 
+var hours = [];
 var jsonData;
 async function init2() {
-    console.log("Initi page.."); 
-    jsonData = await getData(); 
+    console.log("Initi page..");
+    jsonData = await getData();
     prepareCharts();
 }
 
@@ -31,12 +31,12 @@ function showCharts() {
         },
         values: [
             {
-                data: jsonData.today.calls ,
+                data: jsonData.today.calls,
                 animation: false,
                 color: "#FF9800",
             },
         ],
-    }); 
+    });
 }
 
 //draw colum chart
@@ -69,9 +69,9 @@ function drawColumnChart(settings) {
     });
 }
 
-//get information from API 
-async function  getData(){
-    const data = await fetch("http://localhost/CALLCENTER2020/api/todays/")
-    const json = await data.json() 
+//get information from API
+async function getData() {
+    const data = await fetch("http://localhost/CALLCENTER2020/api/todays/");
+    const json = await data.json();
     return json;
 }

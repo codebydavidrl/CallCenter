@@ -39,11 +39,7 @@
         }
         if ($action=='endcall') {
             $headers = getallheaders();
-            if (isset($_POST['sessionid'])) { 
-                echo Session::endcall($_POST['sessionid']);
-            }else{
-                echo "empty parameters";
-            }
+            echo Session::endcall($parameters); 
             
         }
     }

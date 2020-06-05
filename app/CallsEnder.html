@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Bootstrap -->
+        <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+            crossorigin="anonymous"
+        />
+        <!--title-->
+        <title>Calls Simulator</title>
+        <!--javascript-->
+        <script src="js/fontawesome/solid.js"></script>
+        <script src="js/menu.js"></script>
+        <script src="js/enderIndex.js"></script>
+        <script src="JS/utils/callsEnder.js"></script>
+        <script src="JS/utils/config.js"></script>
+        <!-- SweetAlert -->
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <!--stylesheets-->
+        <link href="css/menu.css" rel="stylesheet" />
+        <link href="css/fontawesome/fontawesome.css" rel="stylesheet" />
+        <link href="css/fontawesome/solid.css" rel="stylesheet" />
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/simulator.css" />
+        <meta charset="UTF-8" />
+        <!--For responsive Web-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    </head>
+    <body onload="init()">
+        <!--Header-->
+        <header>
+            <div id="hamburger"></div>
+            <div id="logo">
+                <!-- Logo in here -->
+                Logo
+            </div>
+            <div id="user"></div>
+        </header>
+
+        <!--Menu-->
+        <nav id="nav"></nav>
+
+        <!--Content-->
+        <div id="content">
+            <div class="btns-container">
+                <div class="start-container" title="Start Simulator">
+                    <button
+                        type="button"
+                        id="start-simulation"
+                        class="btn btn-dark"
+                    >
+                        <i class="fas fa-phone-volume"></i>
+                    </button>
+                </div>
+                <div class="stop-container" title="Stop Simulator">
+                    <button
+                        type="button"
+                        id="stop-simulation"
+                        class="btn btn-light"
+                    >
+                        <i style="color: #ccc;" class="fas fa-phone-slash"></i>
+                    </button>
+                </div>
+                <div class="status-container" title="Status Simulator">
+                    <div
+                        style="margin: 0; padding: 0.4rem; width: 100%;"
+                        class="full-width"
+                    >
+                        <h4 style="color: #fff;">Status</h4>
+                    </div>
+                    <button type="button" id="btn-status" class="btn btn-light">
+                        <i id="light-status" class="fas fa-lightbulb"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <footer>footer</footer>
+    </body>
+</html>
