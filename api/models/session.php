@@ -177,11 +177,12 @@
 
         //end call
         public static function endCall($idSession){
-            //results
+            //results 
             $results=array(
                 0=>'Call Ended',
-                1=>'Session id not logged',
-                999=>'Could not End call'
+                1=>'another call Answered || id session invalid',
+                2=>'another call Added to Queue',
+                999=>'Could not end calls'
             );
             //procedire result
             $procedureResult = 999;

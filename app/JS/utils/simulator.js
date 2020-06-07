@@ -19,7 +19,9 @@ class CallSimulator {
         config.simulator.limits.forEach((limit) => {
             if (limit.hour === this.hour) {
                 this.timeInterval =
-                    Math.floor(Math.random() * (limit.max - limit.min)) * 1000;
+                    (Math.floor(Math.random() * (limit.max - limit.min)) +
+                        limit.min) *
+                    1000;
                 return;
             }
         });
@@ -43,7 +45,7 @@ class CallSimulator {
         );
         const answer = await request.json();
         if (answer.status == 0) {
-            //call added succesfully
+            // call added succesfully
             this.insertToTable();
             console.log(answer);
         } else {
@@ -51,7 +53,8 @@ class CallSimulator {
         }
     }
     generateCellNumber() {
-        this.cellphone =  Math.floor(Math.random() * (6649999999 - 6640000000)) + 6640000000; 
+        this.cellphone =
+            Math.floor(Math.random() * (6649999999 - 6640000000)) + 6640000000;
     }
     getHour() {
         const date = new Date();

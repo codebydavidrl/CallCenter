@@ -125,52 +125,52 @@ const config = {
         ],
     },
     ender: {
-        timeInterval: 90000,
+        timeInterval: 60000,
         probabilities: [
             {
                 from: 0,
                 to: 1,
-                probability: 0.1,
+                probability: 0.05,
             },
             {
                 from: 1,
                 to: 2,
-                probability: 0.2,
+                probability: 0.1,
             },
             {
                 from: 2,
                 to: 3,
-                probability: 0.4,
+                probability: 0.2,
             },
             {
                 from: 3,
                 to: 4,
-                probability: 0.6,
+                probability: 0.4,
             },
             {
                 from: 4,
                 to: 5,
-                probability: 0.65,
+                probability: 0.6,
             },
             {
                 from: 5,
                 to: 6,
-                probability: 0.7,
+                probability: 0.8,
             },
             {
                 from: 6,
                 to: 7,
-                probability: 0.75,
+                probability: 0.85,
             },
             {
                 from: 7,
                 to: 8,
-                probability: 0.8,
+                probability: 0.9,
             },
             {
                 from: 8,
                 to: 9,
-                probability: 0.9,
+                probability: 0.95,
             },
         ],
     },

@@ -14,7 +14,6 @@ class CallsEnder {
         this.interval = setInterval(async () => {
             await this.getCallsActive();
             this.analizeCalls();
-            console.log(this.calls);
         }, config.ender.timeInterval);
     }
     async getCallsActive() {
@@ -34,17 +33,17 @@ class CallsEnder {
             const a = call.metrics.handleTime.split(":");
             const seconds = a[0] * 60 * 60 + +a[1] * 60 + +a[2];
             const handleTime = seconds / 60;
-            const session = call.session.id;
+
             const random = parseFloat(Math.random().toFixed(2));
             //if greater than 9 end immediately
-            if (handleTime <= 9) {
+            if (handleTime < 9) {
                 const { probability } = this.filterByHandleTime(handleTime);
                 if (random <= probability) {
                     //end call
-                    await this.endCall(session);
+                    await this.endCall(call);
                 }
             } else {
-                await this.endCall(session);
+                await this.endCall(call);
             }
         });
     }
@@ -56,7 +55,8 @@ class CallsEnder {
             }
         }
     }
-    async endCall(session) {
+    async endCall(call) {
+        const session = call.session.id;
         try {
             const request = await fetch(
                 `${config.localHost}/sessions/endcall/${session}`,
@@ -65,12 +65,13 @@ class CallsEnder {
             const answer = await request.json();
             const info = {
                 message: answer.message,
-                idSession: session,
+                call: call,
             };
-            if (answer.status == 0) console.log(info);
-            else throw new error(answer.message);
+            if (answer.status == 999) throw new Error(answer.message);
+            else console.log(call);
         } catch (error) {
             console.error(error);
+            console.error("id call: ", call.id);
         }
     }
 }
