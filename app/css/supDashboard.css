@@ -1,7 +1,7 @@
 /*                                      Main Container*/
 .main-container {
-    margin: .2rem;
-    width: cal(100% - .6rem);
+    margin: 0.2rem;
+    width: cal(100% - 0.6rem);
     height: 25%;
 }
 
@@ -38,9 +38,10 @@
 }
 
 /*                                      Table */
-.table td , .table th {
+.table td,
+.table th {
     padding: 0.2rem;
-    padding-left: 2rem;
+    /* padding-left: 2rem; */
     font-size: 11pt;
 }
 .table-body-container {
@@ -53,12 +54,25 @@
 
 /*                                              Image user */
 
-.img{
+.img {
     width: 30px;
     border-radius: 30px;
 }
 /* td agent */
-.td-agent{
+.td-agent {
     display: flex;
-    flex-wrap: wrap; 
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+/* Hourly totals table */
+
+#tbody-hourly-totals tr td,
+#tbody-active-calls tr td {
+    padding-left: 0.8rem;
+    width: calc(100% / 7);
+}
+.table tr th {
+    padding-left: 0.1rem;
+    width: calc(100% / 7);
 }
