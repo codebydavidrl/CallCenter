@@ -4,7 +4,16 @@
     if($_SERVER['REQUEST_METHOD']=='GET'){
         if(!empty($action)){
             if($action == 'active'){
-
+                echo json_encode(array(
+                    "status"=>0,
+                    "active"=>Json::listToArray(Session::getActive())
+                )); 
+            }
+            if($action == 'available'){
+                echo json_encode(array(
+                    "status"=>0,
+                    "available"=>Json::listToArray(Session::getAvailable())
+                )); 
             }
         }else{ 
             if(!empty($parameters)){
@@ -13,7 +22,10 @@
             }else{
                 //if there is not action
                 //Show all
-                echo json_encode(Json::listToArray(Session::getAll()));
+                echo json_encode(array(
+                    "status"=>0,
+                    "sessions"=>Json::listToArray(Session::getAll())
+                ));
             }
             
         }

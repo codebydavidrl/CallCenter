@@ -302,7 +302,7 @@ class Call{
     } 
     public static function getActiveCalls(){
         $list=array();//array
-        $query='select id,phoneNumber,status,idSession,receiveddatetime,answereddatetime,enddatetime,waitTime,handleTime,timediff(now(),answeredDateTime) as currentHandleTime from calls where date(receiveddatetime) = curdate() and status = 2 order by answeredDateTime;  ';//query
+        $query='select id,phoneNumber,status,idSession,receiveddatetime,answereddatetime,enddatetime,waitTime,handleTime,timediff(now(),answeredDateTime) as currentHandleTime from calls where status = 2 order by currentHandleTime asc;';//query
         $connection= MySqlConnection::getConnection();
         $command=$connection->prepare($query);
         $command->bind_result($id,$phone,$status,$session,$receivedDateTime,$answerDateTime,$endDateTime,$waitTime,$handleTime,$currentHandleTime);

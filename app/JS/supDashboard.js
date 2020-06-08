@@ -13,13 +13,13 @@ async function init() {
     initMenu();
     //Active and queued calls refreshed every 3 seconds
     setInterval(async () => {
-        await createTableQueue(); 
-        await createTableActive(); 
+        await createTableQueue();
+        await createTableActive();
     }, 1000);
 
     //Hourly detils update every minute
     setInterval(async () => {
-        await createTableHourlyTotals(); 
+        await createTableHourlyTotals();
     }, 60000);
 }
 
@@ -149,7 +149,7 @@ async function createTableHourlyTotals() {
         //Average Handle Time td
         if (AHT > 8) {
             averageHandleTimetd = `<div class="warning-td">
-            averageHandleTimetd<p class="warning-text">${AHT} minutes</p>
+                        <p class="warning-text">${AHT} minutes</p>
                         <i class="fas fa-warning fa-exclamation-triangle"></i>
                     </div>`;
         } else {
@@ -158,7 +158,7 @@ async function createTableHourlyTotals() {
         //Average Wait Time td
         if (AWT > 5) {
             averageWaitTimetd = `<div class="warning-td">
-            averageHandleTimetd<p class="warning-text">${AWT} minutes</p>
+                        <p class="warning-text">${AWT} minutes</p>
                         <i class="fas fa-warning fa-exclamation-triangle"></i>
                     </div>`;
         } else {

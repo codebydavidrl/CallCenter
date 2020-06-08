@@ -125,7 +125,7 @@ const config = {
         ],
     },
     ender: {
-        timeInterval: 60000,
+        timeInterval: 30000,
         probabilities: [
             {
                 from: 0,

@@ -62,17 +62,12 @@ class CallsEnder {
                 `${config.localHost}/sessions/endcall/${session}`,
                 { method: "POST" }
             );
-            const answer = await request.json();
-            const info = {
-                message: answer.message,
-                call: call,
-            };
+            const answer = await request.json(); 
             if (answer.status == 999) throw new Error(answer.message);
             else console.log(call);
         } catch (error) {
             console.error(error);
-            console.error("id call: ", call.id);
-            debugger;
+            console.error("id call: ", call.id); 
         }
     }
 }

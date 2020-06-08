@@ -122,7 +122,41 @@
             return $list;//return array
         } 
 
-        public static function getActiveSessions(){
+        public static function getActive(){
+            $list=array();//array
+            $query='select id from sessions where status <> 4;';//query
+            $connection= MySqlConnection::getConnection();
+            $command=$connection->prepare($query);
+            $command->bind_result($id);
+            $command->execute();
+
+            //read result
+            while ($command->fetch()) {
+                array_push($list,new Session($id));
+                
+            }
+            mysqli_stmt_close($command);
+            $connection->Close();
+
+            return $list;//return array
+        
+        }
+        public static function getAvailable(){
+            $list=array();//array
+            $query='select id from sessions where status =1;';//query
+            $connection= MySqlConnection::getConnection();
+            $command=$connection->prepare($query);
+            $command->bind_result($id);
+            $command->execute();
+
+            //read result
+            while ($command->fetch()) {
+                array_push($list,new Session($id));
+            }
+            mysqli_stmt_close($command);
+            $connection->Close();
+
+            return $list;//return array
         
         }
         
