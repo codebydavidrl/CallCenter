@@ -1,6 +1,6 @@
 {
     "files": {
-        "userPhotos": "http://localhost/CALLCENTER2020/api/users/"
+        "userPhotos": "http://localhost/CALLCENTER2020/app/users/"
     },
     "mySqlConnection": {
         "server": "localHost",

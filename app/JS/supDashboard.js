@@ -3,8 +3,11 @@ async function init() {
 
     //show nav and header
     initMenu();
-    await createTableQueue();
-    await createTableActive();
+    //Active and queued calls refreshed every 3 seconds
+    setInterval(async () => {
+        await createTableActive();
+        await createTableQueue();
+    }, 3000);
 }
 
 async function getCallsOnQueue() {
@@ -19,8 +22,10 @@ async function getCallsActive() {
 }
 
 async function createTableQueue() {
+    console.log("Creating table calls on queue");
     const { queue } = await getCallsOnQueue();
     const body = document.getElementById("tbody-calls-queue");
+    body.textContent = "";
     queue.forEach((call) => {
         const time = call.metrics.waitTime.split(":");
         const waitTime = (
@@ -49,8 +54,10 @@ async function createTableQueue() {
     });
 }
 async function createTableActive() {
+    console.log("Creating table active calls");
     const { active } = await getCallsActive();
     const body = document.getElementById("tbody-active-calls");
+    body.textContent = "";
     active.forEach((call) => {
         const { dateTime, metrics, session, status, id, phone } = call;
         const { waitTime, handleTime } = metrics;
@@ -63,7 +70,6 @@ async function createTableActive() {
             parseFloat(time[2] / 60)
         ).toFixed(2);
 
-
         let tdHandleTime;
         if (ht > 5) {
             tdHandleTime = `<div class="warning-td">
@@ -74,7 +80,6 @@ async function createTableActive() {
             tdHandleTime = `<div style="margin: 0 0.55rem;">${ht} minutes </div>`;
         }
 
-
         body.insertAdjacentHTML(
             "afterbegin",
             `<tr>
@@ -83,10 +88,9 @@ async function createTableActive() {
                 <td>${answered} </td>
                 <td>${waitTime} </td>
                 <td>${tdHandleTime} </td>
-                <td> <img src='${agent.photo}' with=50px />${agent.name} </td>
+                <td class="td-agent"> <img class='img' src='${agent.photo}' with=50px /> <div class='m-1'>${agent.name}<div/> </td>
                 <td>${workstation.description} </td>
             </tr>`
         );
     });
-    console.log(active);
 }

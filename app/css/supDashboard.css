@@ -50,3 +50,15 @@
 .table {
     margin: 0;
 }
+
+/*                                              Image user */
+
+.img{
+    width: 30px;
+    border-radius: 30px;
+}
+/* td agent */
+.td-agent{
+    display: flex;
+    flex-wrap: wrap; 
+}
