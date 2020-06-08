@@ -44,12 +44,13 @@ class CallSimulator {
             }
         );
         const answer = await request.json();
-        if (answer.status == 0) {
+        if (answer.status == 999) {
+            console.error(answer.message);
+            debugger;
+        } else {
             // call added succesfully
             this.insertToTable();
             console.log(answer);
-        } else {
-            throw new Error(answer.message);
         }
     }
     generateCellNumber() {

@@ -1,0 +1,52 @@
+/*                                      Main Container*/
+.main-container {
+    margin: .2rem;
+    width: cal(100% - .6rem);
+    height: 25%;
+}
+
+/*                                         Warning */
+.warning-td {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: end;
+}
+
+.fa-warning,
+.warning-text {
+    width: auto;
+    height: 100%;
+    margin: 0 0.5rem;
+}
+
+.fa-warning {
+    color: #ffeb3b;
+}
+
+/*                                          Titles */
+.full-width {
+    color: #666;
+    justify-content: flex-start;
+    font-family: "Quicksand", sans-serif;
+    margin: 0.3rem;
+}
+
+/*                                  Calls on Queue */
+.container-calls-onQueue {
+    width: calc(50% - 2rem);
+}
+
+/*                                      Table */
+.table td , .table th {
+    padding: 0.2rem;
+    padding-left: 2rem;
+    font-size: 11pt;
+}
+.table-body-container {
+    height: 130px;
+    overflow: scroll;
+}
+.table {
+    margin: 0;
+}

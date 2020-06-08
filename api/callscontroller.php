@@ -21,7 +21,7 @@
             //get today calls
             echo json_encode(array(
                 "status"=>0,
-                "queue"=>Json::listToArray(Call::getCallsOnQueue())
+                "queue"=>Call::getCallsOnQueueToJson()
             ));
         }
         //calls active

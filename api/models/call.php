@@ -90,11 +90,12 @@ class Call{
             mysqli_stmt_close($command); //close command
             $connection->close(); //close connection
         }
-        if (func_num_args()== 4) {
+        if (func_num_args()== 5) {
             $this->id=$arguments[0];
             $this->phone=$arguments[1];
             $this->status=$arguments[2]; 
             $this->receivedDateTime=$arguments[3];
+            $this->waitTime=$arguments[4];
         }  
 
         if (func_num_args()==9) {
@@ -136,6 +137,23 @@ class Call{
                 'session'=>json_decode($session->toJson()) 
 
             ));
+    } 
+    public function toQueue(){ 
+        return json_encode(array(
+            'id'=>$this->id,
+            'phone'=>$this->phone,
+            'dateTime'=>array(
+                'received'=>$this->receivedDateTime
+            ),
+            'metrics'=>array(
+                'waitTime'=>$this->waitTime
+            ),
+            'status'=>array(
+                'id'=>$this->status,
+                'description'=>$this->getStatusDescription()
+            )
+
+        ));
     } 
      
     //receive call
@@ -267,15 +285,15 @@ class Call{
     }  
     public static function getCallsOnQueue(){
         $list=array();//array
-        $query='select id,phoneNumber,status,receiveddatetime from calls where date(receiveddatetime) = curdate() and status = 1;';//query
+        $query='select id,phoneNumber,status,receiveddatetime,timediff(now(),receiveddatetime) as timeOnQueue from calls where date(receiveddatetime) = curdate() and status = 1;';//query
         $connection= MySqlConnection::getConnection();
         $command=$connection->prepare($query);
-        $command->bind_result($id,$phone,$status,$receivedDateTime);
+        $command->bind_result($id,$phone,$status,$receivedDateTime,$waitTime);
         $command->execute();
 
         //read result
         while ($command->fetch()) {
-            array_push($list,new Call($id,$phone,$status,$receivedDateTime));
+            array_push($list,new Call($id,$phone,$status,$receivedDateTime,$waitTime));
         }
         mysqli_stmt_close($command);
         $connection->Close();
@@ -299,5 +317,14 @@ class Call{
 
         return $list;//return array
     } 
+
+    public static function getCallsOnQueueToJson(){
+        $array = array();
+        foreach (self::getCallsOnQueue() as $item ) {
+            #add item to array
+            array_push($array,json_decode($item->toQueue()));
+        }
+        return $array; // return array
+    }
 }
 ?>

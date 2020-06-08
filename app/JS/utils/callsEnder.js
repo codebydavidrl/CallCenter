@@ -72,6 +72,7 @@ class CallsEnder {
         } catch (error) {
             console.error(error);
             console.error("id call: ", call.id);
+            debugger;
         }
     }
 }

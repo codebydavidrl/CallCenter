@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Bootstrap -->
+        <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+            crossorigin="anonymous"
+        />
+        <!--title-->
+        <title>Supervisor Dashboard</title>
+        <!--javascript-->
+        <script src="js/fontawesome/solid.js"></script>
+        <script src="js/menu.js"></script>
+        <!-- js Supervisor dashboard -->
+        <script src="js/supDashboard.js"></script>
+        <script src="JS/utils/config.js"></script>
+        <!--stylesheets-->
+        <link href="css/menu.css" rel="stylesheet" />
+        <link href="css/fontawesome/fontawesome.css" rel="stylesheet" />
+        <link href="css/fontawesome/solid.css" rel="stylesheet" />
+        <link rel="stylesheet" href="css/style.css" />
+        <!-- Supervisor Dashboard -->
+        <link rel="stylesheet" href="css/supDashboard.css" />
+        <meta charset="UTF-8" />
+        <!--For responsive Web-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    </head>
+    <body onload="init()">
+        <!--Header-->
+        <header>
+            <div id="hamburger"></div>
+            <div id="logo">
+                <!-- Logo in here -->
+                Logo
+            </div>
+            <div id="user"></div>
+        </header>
+
+        <!--Menu-->
+        <nav id="nav"></nav>
+
+        <!--Content-->
+        <div id="content">
+            <div class="main-container container-calls-onQueue">
+                <div class="full-width"><h4>Calls on Queue</h4></div>
+                <div class="table-container">
+                    <table class="table table-dark">
+                        <thead>
+                            <tr>
+                                <th>Received</th>
+                                <th>Number</th>
+                                <th>Wait Time</th>
+                            </tr>
+                        </thead>
+                    </table>
+                    <div class="table-body-container table-dark">
+                        <table class="table table-dark">
+                            <tbody id="tbody-calls-queue"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="main-container container-calls-active">
+                <div class="full-width"><h4>Active Calls</h4></div>
+                <div class="table-container">
+                    <table class="table table-dark">
+                        <thead>
+                            <tr>
+                                <th>Number</th>
+                                <th>Received</th>
+                                <th>Answered</th>
+                                <th>Wait Time</th>
+                                <th>Handle Time</th>
+                                <th>Agents</th>
+                                <th>Workstation</th>
+                            </tr>
+                        </thead>
+                    </table>
+                    <div class="table-body-container table-dark">
+                        <table class="table table-dark">
+                            <tbody id="tbody-active-calls"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="main-container container-hourly-totals">
+                <div class="full-width"><h4>Hourly Totals</h4></div>
+                <div class="table-container">
+                    <table class="table table-dark">
+                        <thead>
+                            <tr>
+                                <th>Day</th>
+                                <th>Hour</th>
+                                <th>Calls Received</th>
+                                <th>Calls Answered</th>
+                                <th>Calls Ended</th>
+                                <th>Average Wait Time</th>
+                                <th>Average Handle Time</th>
+                            </tr>
+                        </thead>
+                    </table>
+                    <div class="table-body-container table-dark">
+                        <table class="table table-dark">
+                            <tbody id="tbody-hourly-totals"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>footer</footer>
+    </body>
+</html>
