@@ -161,5 +161,40 @@
 
             return $data;
         } 
+
+        public static function getTotalActives(){
+            $connection = MySqlConnection::getConnection();//get connection
+            $query = 'select count(*) from sessions s join agents a on s.idAgent = a.id where date(startdatetime) = curdate() or s.status <> 4;';//query
+            $command = $connection->prepare($query);//prepare statement 
+            $command->execute();//execute
+            $command->bind_result($totalAgents);//bind results
+            //fetch data
+            if($command->fetch()) {
+                //pass tha values of the fields to the attributes
+                return $totalAgents;
+            }
+            else{
+                throw new RecordNotFoundException($arguments[0]); 
+            }
+            mysqli_stmt_close($command); //close command
+            $connection->close(); //close connection
+        } 
+        public static function getTotalAvailable(){
+            $connection = MySqlConnection::getConnection();//get connection
+            $query = 'select count(*) from sessions s join agents a on s.idAgent = a.id where date(startdatetime) = curdate() and s.status=1';//query
+            $command = $connection->prepare($query);//prepare statement 
+            $command->execute();//execute
+            $command->bind_result($totalAgents);//bind results
+            //fetch data
+            if($command->fetch()) {
+                //pass tha values of the fields to the attributes
+                return $totalAgents;
+            }
+            else{
+                throw new RecordNotFoundException($arguments[0]); 
+            }
+            mysqli_stmt_close($command); //close command
+            $connection->close(); //close connection
+        } 
     }
 ?>

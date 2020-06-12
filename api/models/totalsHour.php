@@ -79,6 +79,97 @@ class TotalsHours{
         }
         return json_encode($jsonArray); // return JSON array
     }
+
+    public static function getNowInformation(){
+        $connection = MySqlConnection::getConnection();//get connection
+        $query = 'select * from totalsHour where day = curdate() and hour = hour(current_time());';//query
+        $command = $connection->prepare($query);//prepare statement
+        $command->bind_param('i',$arguments[0]);
+        $command->execute();//execute
+        $command->bind_result($id,$day,$hour,$callsReceived,$callsAnswered,$callsEnded,$averageWaitTime,$averageHandleTime);//bind results
+        //fetch data
+        if($command->fetch()) {
+            //pass tha values of the fields to the attributes
+             $this->id = $id;
+             $this->day = $day;
+             $this->hour = $hour;
+             $this->callsReceived = $callsReceived;
+             $this->callsAnswered = $callsAnswered;
+             $this->callsEnded = $callsEnded;
+             $this->averageWaitTime = $averageWaitTime;
+             $this->averageHandleTime = $averageHandleTime;                    
+        }
+        else{
+            throw new RecordNotFoundException("something went wrong");   
+        }
+        mysqli_stmt_close($command); //close command
+        $connection->close(); //close connection
+
+        return $this->toJson();
+    } 
+    //Get Average handle time
+    public static function getAvgHandleTime(){
+        $connection = MySqlConnection::getConnection();//get connection
+        $query = 'select averageHandleTime from totalsHour where day = curdate() and hour(current_time());';//query
+        $command = $connection->prepare($query);//prepare statement 
+        $command->execute();//execute
+        $command->bind_result($avgHandleTime);//bind results
+        //fetch data
+        while($command->fetch()) {
+            //pass tha values of the fields to the attributes
+             $avgHandleTime = $avgHandleTime;                
+        } 
+        mysqli_stmt_close($command); //close command
+        $connection->close(); //close connection 
+        return $avgHandleTime;
+    } 
+    public static function getAvgHandleTimeMinutes(){
+        $connection = MySqlConnection::getConnection();//get connection
+        $query = 'select (time_to_sec(averageHandleTime)/60) as avgHandle from totalsHour where day = curdate() and hour(current_time());';//query
+        $command = $connection->prepare($query);//prepare statement 
+        $command->execute();//execute
+        $command->bind_result($avgHandleTime);//bind results
+        //fetch data
+        if($command->fetch()) {
+            //pass tha values of the fields to the attributes
+             $avgHandleTime = $avgHandleTime;                
+        } 
+        mysqli_stmt_close($command); //close command
+        $connection->close(); //close connection 
+        return round($avgHandleTime, 2);
+    }  
+    //Get Average wait time
+    public static function getAvgWaitTime(){
+        $connection = MySqlConnection::getConnection();//get connection
+        $query = 'select averageWaitTime from totalsHour where day = curdate() and hour(current_time());';//query
+        $command = $connection->prepare($query);//prepare statement 
+        $command->execute();//execute
+        $command->bind_result($avgWaitTime);//bind results
+        //fetch data
+        while($command->fetch()) {
+            //pass tha values of the fields to the attributes
+             $avgWaitTime = $avgWaitTime;                
+        } 
+        mysqli_stmt_close($command); //close command
+        $connection->close(); //close connection 
+        return $avgWaitTime;
+    } 
+    public static function getAvgWaitTimeMinutes(){
+        $connection = MySqlConnection::getConnection();//get connection
+        $query = 'select (time_to_sec(averageWaitTime)/60) as avgWait from totalsHour where day = curdate() and hour(current_time());';//query
+        $command = $connection->prepare($query);//prepare statement 
+        $command->execute();//execute
+        $command->bind_result($avgWaitTime);//bind results
+        //fetch data
+        if($command->fetch()) {
+            //pass tha values of the fields to the attributes
+             $avgWaitTime = $avgWaitTime;                
+        } 
+        mysqli_stmt_close($command); //close command
+        $connection->close(); //close connection 
+        return round($avgWaitTime, 2);
+    } 
+     
 }
 
 ?>

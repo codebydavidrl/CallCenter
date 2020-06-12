@@ -317,7 +317,7 @@ class Call{
 
         return $list;//return array
     } 
-
+    
     public static function getCallsOnQueueToJson(){
         $array = array();
         foreach (self::getCallsOnQueue() as $item ) {
@@ -326,5 +326,38 @@ class Call{
         }
         return $array; // return array
     }
+
+    public static function getTotalActiveCalls(){
+        $connection = MySqlConnection::getConnection();//get connection
+        $query = 'select count(*) from calls where status=2;';//query
+        $command = $connection->prepare($query);//prepare statement 
+        $command->execute();//execute
+        $command->bind_result($totalActiveCalls);//bind results
+        //fetch data
+        if($command->fetch()) {
+            //pass tha values of the fields to the attributes
+            return $totalActiveCalls;
+        }
+        else
+            throw new RecordNotFoundException($totalActiveCalls);
+        mysqli_stmt_close($command); //close command
+        $connection->close(); //close connection
+    } 
+    public static function getTotalCallsOnQueue(){
+        $connection = MySqlConnection::getConnection();//get connection
+        $query = 'select count(*) from calls where status=1;';//query
+        $command = $connection->prepare($query);//prepare statement 
+        $command->execute();//execute
+        $command->bind_result($totalCallsOnQueue);//bind results
+        //fetch data
+        if($command->fetch()) {
+            //pass tha values of the fields to the attributes
+            return $totalCallsOnQueue;
+        }
+        else
+            throw new RecordNotFoundException($totalCallsOnQueue);
+        mysqli_stmt_close($command); //close command
+        $connection->close(); //close connection
+    } 
 }
 ?>
