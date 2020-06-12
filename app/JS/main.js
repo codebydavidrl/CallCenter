@@ -1,22 +1,23 @@
 var hours = [];
-var jsonData;
 async function init2() {
     console.log("Initi page..");
-    jsonData = await getData();
+    //Preparing charts
     prepareCharts();
 }
 
 //get values and assign them to arrays
-function prepareCharts() {
+async function prepareCharts() {
     console.log("Preparing charts");
-    for (let h = 0; h < 24; h++) {
-        hours.push(h + ":00");
-    }
-    showCharts();
+    const { today } = await getData();
+    const { agents, calls, averageHandleTime, averageWaitTime } = today;
+    showCallsChart(calls);
+    showAgentsChart(agents);
+    showAvgHT(averageHandleTime);
+    showAvgWT(averageWaitTime);
 }
-//show charts
-function showCharts() {
-    console.log("showing charts...");
+//show calls chart
+function showCallsChart(calls) {
+    console.log("showing calls charts...");
     //Calls Chart
     drawColumnChart({
         parentDiv: "chart-calls",
@@ -31,7 +32,79 @@ function showCharts() {
         },
         values: [
             {
-                data: jsonData.today.calls,
+                data: calls,
+                animation: false,
+                color: "#FF9800",
+            },
+        ],
+    });
+}
+//Show agents chart
+function showAgentsChart(agents) {
+    console.log("showing agents charts...");
+    //Calls Chart
+    drawColumnChart({
+        parentDiv: "chart-agents",
+        chartTitle: "calls received per hour",
+        yAxis: {
+            minValue: 0,
+            title: "Quantity",
+        },
+        xAxis: {
+            title: "hour",
+            categories: hours,
+        },
+        values: [
+            {
+                data: agents,
+                animation: false,
+                color: "#FF9800",
+            },
+        ],
+    });
+}
+//Show average handle time chart
+function showAvgHT(averageHandleTime) {
+    console.log("showing average handle time...");
+    //Calls Chart
+    drawColumnChart({
+        parentDiv: "chart-avg-HandTime",
+        chartTitle: "calls received per hour",
+        yAxis: {
+            minValue: 0,
+            title: "Quantity",
+        },
+        xAxis: {
+            title: "hour",
+            categories: hours,
+        },
+        values: [
+            {
+                data: averageHandleTime,
+                animation: false,
+                color: "#FF9800",
+            },
+        ],
+    });
+}
+//Show average wait time chart
+function showAvgWT(averageWaitTime) {
+    console.log("showing avg wait time...");
+    //Calls Chart
+    drawColumnChart({
+        parentDiv: "chart-avg-WaitTime",
+        chartTitle: "calls received per hour",
+        yAxis: {
+            minValue: 0,
+            title: "Quantity",
+        },
+        xAxis: {
+            title: "hour",
+            categories: hours,
+        },
+        values: [
+            {
+                data: averageWaitTime,
                 animation: false,
                 color: "#FF9800",
             },
