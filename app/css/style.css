@@ -1,5 +1,5 @@
 body {
-    background-color: #333;
+    background-color: #212537;
     margin: 0px;
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -12,8 +12,8 @@ footer,
     float: left;
     width: 100%;
 }
-header {
-    background-color: #222;
+#content {
+    font-family: "quick sand";
 }
 nav {
     position: absolute;
@@ -22,8 +22,8 @@ nav {
     width: 200px;
     height: 400px;
     z-index: 9999; /*To move on top of everything*/
-    background-color: #333;
-    display: none;  
+    background-color: #212537;
+    display: none;
 }
 .menu {
     position: relative;
@@ -50,7 +50,7 @@ nav {
     margin: 5px;
 }
 #content {
-    background-color: #dddddd;
+    background-color: #212537;
     align-items: center;
 }
 #hamburger {
@@ -99,69 +99,80 @@ nav {
 .kpititle {
     position: relative;
     float: left;
-} 
+    font-family: "quicksand";
+}
 
 .kpititle {
     height: 120px;
     display: flex;
-    justify-content: center; /*horizontal alignment*/
-    align-items: center; /*vertical alignment*/
-    background-color: #ccc;
+    justify-content: center;
+    align-items: center;
+    background-color: #282c3f;
     height: 50px;
     width: 100%;
-    font-size: 16pt;
-    color: #ffffff;
+    font-size: 20pt;
+    font-weight: 500;
+    color: #eee;
+    font-family: inherit;
 }
-.kpi-content{ 
-    width: 100%;
+.kpi-content {
+    width: calc(100%);
     height: 150px;
     display: flex;
+    font-family: inherit;
+    color: #ddd;
 }
-.kpi-content-div{
-    width: calc(33.3% - 1PX);
-    /* border: 1px solid #ccc;  */
+.kpi-content-div {
+    width: calc(33.3% - 1px);
     height: 100%;
 }
 
 /*  Title and content of items*/
-.fas{
-    width: 100%; 
+.fas {
+    width: 100%;
     display: flex;
-    justify-content:end;
+    justify-content: end;
     align-items: center;
     color: #fff;
 }
-.full-width{
+.full-width {
     width: calc(100% - 1rem);
-    margin: 1rem; 
-    color: #ccc;
+    margin: 1rem;
+    color: #fff;
     display: flex;
     font-size: 20pt;
     justify-content: center;
+    font-family: "quicksand";
+    font-size: 30pt;
+    font-weight: 500;
 }
-.title-card{
-    width: 100%; 
+.title-card {
+    width: 100%;
     height: 35%;
     font-size: 12pt;
+    color: #fff;
 }
-.content-card{
+.content-card {
     width: 100%;
-    height: 65%; 
+    height: 65%;
     font-size: 22pt;
+    color: #00d26a;
 }
 
-.title-card,.content-card{
+.title-card,
+.content-card {
     display: flex;
     justify-content: center;
     align-items: center;
     font-weight: 600;
-    color: #aaa;
+    background-color: #212537;
 }
 /* section outsidetemp*/
 
 .empty {
     width: calc(50% - 20px);
     margin: 10px;
+    background-color: #282c3f;
 }
 .charttitle,
 .chartvalue,
@@ -169,7 +180,6 @@ nav {
     position: relative;
     float: left;
 }
-
 
 .charttitle,
 .chartvalue {
@@ -181,16 +191,18 @@ nav {
 
 .charttitle {
     height: 50px;
-    background: #666666;
-    font-size: 16pt;
+    background-color: #282c3f;
     color: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-family: "quicksand";
+    font-size: 20pt;
+    font-weight: 500;
 }
 .chartvalue {
     height: 200px;
-    background: #fff;
+    background: #212537;
     font-size: 18pt;
 }
 
@@ -230,7 +242,36 @@ svg {
     stroke: #1b5e20;
     stroke-width: 1px;
 }
- 
+
+.highcharts-background {
+    fill: #212537;
+}
+.kpi-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#kpi-logo {
+    font-size: 77pt;
+    color: #ddd;
+}
+.highcharts-point {
+    stroke: #aaaaaa;
+}
+
+.calls {
+    color: #3a78f2;
+}
+
+/* Quicksand */
+.quicksand {
+    font-family: "quicksand";
+    font-weight: 500;
+}
+.last-update {
+    font-family: "quicksand";
+}
+
 /*media queries*/
 
 /* Tablet*/

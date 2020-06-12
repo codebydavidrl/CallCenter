@@ -110,7 +110,7 @@ class TotalsHours{
     //Get Average handle time
     public static function getAvgHandleTime(){
         $connection = MySqlConnection::getConnection();//get connection
-        $query = 'select averageHandleTime from totalsHour where day = curdate() and hour(current_time());';//query
+        $query = 'select averageHandleTime from totalsHour as t where t.day = curdate() and t.hour = hour(current_time());';//query
         $command = $connection->prepare($query);//prepare statement 
         $command->execute();//execute
         $command->bind_result($avgHandleTime);//bind results
@@ -125,7 +125,7 @@ class TotalsHours{
     } 
     public static function getAvgHandleTimeMinutes(){
         $connection = MySqlConnection::getConnection();//get connection
-        $query = 'select (time_to_sec(averageHandleTime)/60) as avgHandle from totalsHour where day = curdate() and hour(current_time());';//query
+        $query = 'select (time_to_sec(averageHandleTime)/60) as avgHandle from totalsHour as t where t.day = curdate() and t.hour = hour(current_time());';//query
         $command = $connection->prepare($query);//prepare statement 
         $command->execute();//execute
         $command->bind_result($avgHandleTime);//bind results
@@ -141,7 +141,7 @@ class TotalsHours{
     //Get Average wait time
     public static function getAvgWaitTime(){
         $connection = MySqlConnection::getConnection();//get connection
-        $query = 'select averageWaitTime from totalsHour where day = curdate() and hour(current_time());';//query
+        $query = 'select averageWaitTime from totalsHour as t where t.day = curdate() and t.hour = hour(current_time());';//query
         $command = $connection->prepare($query);//prepare statement 
         $command->execute();//execute
         $command->bind_result($avgWaitTime);//bind results
@@ -156,7 +156,7 @@ class TotalsHours{
     } 
     public static function getAvgWaitTimeMinutes(){
         $connection = MySqlConnection::getConnection();//get connection
-        $query = 'select (time_to_sec(averageWaitTime)/60) as avgWait from totalsHour where day = curdate() and hour(current_time());';//query
+        $query = 'select (time_to_sec(averageWaitTime)/60) as avgHandle from totalsHour as t where t.day = curdate() and t.hour = hour(current_time());';//query
         $command = $connection->prepare($query);//prepare statement 
         $command->execute();//execute
         $command->bind_result($avgWaitTime);//bind results

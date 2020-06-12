@@ -19,6 +19,7 @@
 td,
 th {
     text-align: center;
+    font-family: "Quicksand";
 }
 
 /* Buttons */
@@ -29,19 +30,23 @@ th {
     width: 150px;
     padding: 2rem;
 }
-.stop-container,.start-container,.status-container{
-    margin: .2rem; 
+.stop-container,
+.start-container,
+.status-container {
+    margin: 0.2rem;
     width: 100%;
 }
-.stop-container button,.start-container button,.status-container button{
+.stop-container button,
+.start-container button,
+.status-container button {
     font-size: 40px;
-    width: 100%; 
+    width: 100%;
 }
 
-.status-container button i{
+.status-container button i {
     font-size: 35px;
-    color: #F44336;
+    color: #f44336;
 }
-button .fas{
+button .fas {
     justify-content: center;
 }

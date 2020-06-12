@@ -7,6 +7,7 @@
         <script src="js/fontawesome/solid.js"></script>
         <script src="js/menu.js"></script>
         <script src="js/main.js"></script>
+        <script src="js/utils/config.js"></script>
         <!--stylesheets-->
         <link href="css/menu.css" rel="stylesheet" />
         <link href="css/fontawesome/fontawesome.css" rel="stylesheet" />
@@ -17,7 +18,12 @@
         <!--For -->
         <link rel="stylesheet" href="css/style.css" />
         <!-- hightcharts -->
-        <script src="js/highcharts.js"></script>
+        <script src="JS/highcharts/highcharts.js"></script>
+        <script src="JS/highcharts/highcharts-more.js"></script>
+        <script src="JS/highcharts/modules/solid-gauge.js"></script>
+        <!-- <script src="JS/highcharts/modules/exporting.js"></script>
+        <script src="JS/highcharts/modules/export-data.js"></script> -->
+        <script src="JS/highcharts/modules/accessibility.js"></script>
     </head>
     <body onload="initMenu()">
         <!--Header-->
@@ -40,43 +46,59 @@
                 <div class="kpititle">Agents</div>
                 <div class="kpi-content">
                     <div class="kpi-content-div kpi-logo">
-                        <i class="fas fa-users"></i>
+                        <i id="kpi-logo" class="fas fa-users"></i>
                     </div>
                     <div class="kpi-content-div">
                         <div class="title-card">Active</div>
-                        <div class="content-card">98</div>
+                        <div
+                            class="content-card"
+                            id="agents-active-label"
+                        ></div>
                     </div>
                     <div class="kpi-content-div">
                         <div class="title-card">Avilable</div>
-                        <div class="content-card">20</div>
+                        <div
+                            class="content-card"
+                            id="agents-available-label"
+                        ></div>
                     </div>
                 </div>
             </div>
             <div id="insidetemp" class="kpi">
                 <div class="kpititle">Calls</div>
                 <div class="kpi-content">
-                    <div class="kpi-content-div kpi-logo"></div>
+                    <div class="kpi-content-div kpi-logo">
+                        <i id="kpi-logo" class="fas fa-phone-volume"></i>
+                    </div>
                     <div class="kpi-content-div">
                         <div class="title-card">Active</div>
-                        <div class="content-card">50</div>
+                        <div
+                            class="content-card calls"
+                            id="calls-active-label"
+                        ></div>
                     </div>
                     <div class="kpi-content-div">
                         <div class="title-card">On Queue</div>
-                        <div class="content-card">30</div>
+                        <div
+                            class="content-card calls"
+                            id="calls-queue-label"
+                        ></div>
                     </div>
                 </div>
             </div>
             <div id="humidity" class="kpi">
                 <div class="kpititle">Average Time</div>
                 <div class="kpi-content">
-                    <div class="kpi-content-div kpi-logo"></div>
+                    <div class="kpi-content-div kpi-logo">
+                        <i id="kpi-logo" class="fas fa-clock"></i>
+                    </div>
                     <div class="kpi-content-div">
                         <div class="title-card">Handle</div>
-                        <div class="content-card">99</div>
+                        <div class="content-card" id="avg-handle-div"></div>
                     </div>
                     <div class="kpi-content-div">
                         <div class="title-card">Wait</div>
-                        <div class="content-card">99</div>
+                        <div class="content-card" id="avg-wait-div"></div>
                     </div>
                 </div>
             </div>
@@ -92,11 +114,11 @@
                 <div id="chart-calls" class="chartvalue"></div>
             </div>
             <div class="empty">
-                <div class="charttitle">Average Handle Time</div>
+                <div class="charttitle">Handle Time</div>
                 <div id="chart-avg-HandTime" class="chartvalue"></div>
             </div>
             <div class="empty">
-                <div class="charttitle">Average Wait Time</div>
+                <div class="charttitle">Wait Time</div>
                 <div class="chartvalue" id="chart-avg-WaitTime"></div>
             </div>
         </div>

@@ -46,8 +46,8 @@
             }
 
         }
-        if($action == 'endsession'){
-            echo Session::endsession($parameter);
+        if($action == 'end'){
+            echo Session::end($parameters);
         }
         if ($action=='endcall') {
             $headers = getallheaders();

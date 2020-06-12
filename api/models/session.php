@@ -204,10 +204,48 @@
                 }
             }
         } 
-        //end session
-        public static function end($id){
-
-        }
+        public static function end($sessionid){
+             //results
+             $results=array(
+                0=>'Session ended',
+                1=>'Not existing agent',
+                2=>'Session in call',
+                3=>'Has already ended', 
+                999=>'Could not start session'
+            );
+            //procedire result
+            $procedureResult = 999;
+            //execute tored procedure
+            $connection = MySqlConnection:: getConnection();
+            //connection open 
+            if($connection){
+                //query
+                $query = 'call spEndSession('.$sessionid.',@result);select @result;';
+                //execute
+                $dataSet = $connection->multi_query($query);
+                //check if there are results
+                if($dataSet){
+                    //loop thru result tables
+                    do{
+                        //get result
+                        if($result = $connection->store_result()){
+                            //loop thru rows
+                            while($row = $result->fetch_row()){
+                                //loop thru fields
+                                foreach($row as $field) $procedureResult = $field;
+                            }
+                        }
+                    }while($connection->next_result());
+                    //close connection
+                    $connection->close();
+                    //return result
+                    return json_encode(array(
+                        'status' => $procedureResult,
+                        'message' => $results[$procedureResult]
+                    ));
+                }
+            }
+        }  
 
         //end call
         public static function endCall($idSession){

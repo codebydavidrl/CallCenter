@@ -1,8 +1,8 @@
 var userInfo = {
-    id: "1001",
+    id: "1002",
     userName: "mjones",
     fullName: "Mary Jones",
-    photo: "users/1001.png",
+    photo: "users/1002.png",
     role: {
         id: "SA",
         name: "System Administrator",
@@ -87,7 +87,7 @@ function showMenu() {
     userInfo.menuOptions.forEach((option) => {
         menu.insertAdjacentHTML(
             "beforeend",
-            `<i style='margin-left: 1rem;' class="fas fa-${option.icon} icon ${userInfo.theme}-icon menu-item"> &nbsp ${option.title[language]}</i>  `
+            `<i style='margin-left: 1rem;' class="fas fa-${option.icon} icon ${userInfo.theme}-icon menu-item"> &nbsp <span class="quicksand">${option.title[language]}</span></i>  `
         );
     });
     //menu event listener
@@ -100,14 +100,18 @@ function showMenu() {
 function showInfoUser() {
     const img_src = `${window.location.pathname}/../${userInfo.photo}`;
     const info_div = document.getElementById("user");
-    const header = document.getElementsByTagName('header'); 
-    header[0].classList.add(`${userInfo.theme}`) 
-    
+    const header = document.getElementsByTagName("header");
+    header[0].classList.add(`${userInfo.theme}`);
+
     info_div.insertAdjacentHTML(
         "afterbegin",
-        `<div style='margin:1rem;' class='${userInfo.theme}'>
-            <div class='name'>${userInfo.fullName}</div>
-            <div>${userInfo.role.name}</div>
+        `<div  class="mr-1 last-update">
+            <h6>last update:</h6>
+            <h6 id=last-updateHour>01:16</h6>
+        </div>
+        <div style='margin:1rem;' class='${userInfo.theme}'>
+            <div class='quicksand'>${userInfo.fullName}</div>
+            <div class ='quicksand'>${userInfo.role.name}</div>
         </div>
         <div style='margin:1rem;'>
             <div class=photo><img class='photo' src='${img_src}' width='50px' /></div>

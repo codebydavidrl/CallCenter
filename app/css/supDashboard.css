@@ -1,8 +1,9 @@
 /*                                      Main Container*/
 .main-container {
-    margin: 0.2rem;
+    margin: 1rem 0.2rem;
     width: cal(100% - 0.6rem);
     height: 25%;
+    padding: 0.5rem;
 }
 
 /*                                         Warning */
@@ -26,14 +27,15 @@
 
 /*                                          Titles */
 .full-width {
-    color: #666;
-    justify-content: flex-start;
+    color: #fff;
+    justify-content: center;
     font-family: "Quicksand", sans-serif;
-    margin: 0.3rem;
 }
-
+.full-width h4 {
+    font-size: 20pt;
+}
 /*                                  Calls on Queue */
-.container-calls-onQueue {
+#container-calls-onQueue {
     width: calc(50% - 2rem);
 }
 
@@ -41,8 +43,11 @@
 .table td,
 .table th {
     padding: 0.2rem;
-    /* padding-left: 2rem; */
     font-size: 11pt;
+    font-family: "quicksand";
+}
+.table th {
+    font-weight: 500;
 }
 .table-body-container {
     height: 130px;
@@ -51,7 +56,12 @@
 .table {
     margin: 0;
 }
-
+.table-dark thead tr th {
+    background-color: #3c4147;
+}
+.table-dark {
+    background-color: #212529;
+}
 /*                                              Image user */
 
 .img {
@@ -75,4 +85,31 @@
 .table tr th {
     padding-left: 0.1rem;
     width: calc(100% / 7);
+}
+.table-container {
+    background: gray;
+    width: calc(100% - 2rem);
+    margin: 1rem;
+}
+
+/* Scrollbar */
+/* width */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+/* Track */
+::-webkit-scrollbar-corner,
+::-webkit-scrollbar-track {
+    background: #3c4147;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #212529;
+    border-radius: 2px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #6f767d;
 }

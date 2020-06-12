@@ -21,8 +21,8 @@ require_once('call.php');
                             "minutes"=>TotalsHours::getAvgHandleTimeMinutes()
                         )),
                         "wait"=>(array(
-                            "time"=>"00:00:00",
-                            "minutes"=>0.0
+                            "time"=>TotalsHours::getAvgWaitTime(),
+                            "minutes"=>TotalsHours::getAvgWaitTimeMinutes()
                         ))
                     ))
                 ))

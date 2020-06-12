@@ -15,10 +15,6 @@ async function init() {
     setInterval(async () => {
         await createTableQueue();
         await createTableActive();
-    }, 1000);
-
-    //Hourly detils update every minute
-    setInterval(async () => {
         await createTableHourlyTotals();
     }, 60000);
 }
@@ -125,23 +121,25 @@ async function createTableHourlyTotals() {
     body.textContent = "";
     const { totalsHour } = await getHourlyTotals();
     totalsHour.forEach((total) => {
+        console.log(total);
         const { id, day, hour, metrics, time } = total;
         const { callsReceived, callsAnswered, callsEnded } = metrics;
         const { averageWaitTime, averageHandleTime } = time;
+        let AHT, AWT;
         //Average handle time neccessary variables
-        const timeAHT = averageHandleTime.split(":");
-        const AHT = (
-            parseFloat(timeAHT[0] * 60) +
-            parseFloat(timeAHT[1]) +
-            parseFloat(timeAHT[2] / 60)
-        ).toFixed(2);
-        //Average wait time neccessary variables
-        const timeAWT = averageWaitTime.split(":");
-        const AWT = (
-            parseFloat(timeAWT[0] * 60) +
-            parseFloat(timeAWT[1]) +
-            parseFloat(timeAWT[2] / 60)
-        ).toFixed(2);
+        if (averageHandleTime != null) {
+            const timeAHT = averageHandleTime.split(":");
+            AHT = parseFloat(timeAHT[0] / 60 + timeAHT[1] + "." + timeAHT[2]);
+        } else {
+            AHT = 0.0;
+        }
+        if (averageWaitTime != null) {
+            //Average wait time neccessary variables
+            const timeAWT = averageWaitTime.split(":");
+            AWT = parseFloat(timeAWT[0] / 60 + timeAWT[1] + "." + timeAWT[2]);
+        } else {
+            AWT = 0.0;
+        }
 
         //td for avgHandeTime and avgWaitTime
         let averageHandleTimetd, averageWaitTimetd;
