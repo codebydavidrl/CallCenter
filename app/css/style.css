@@ -270,6 +270,7 @@ svg {
 }
 .last-update {
     font-family: "quicksand";
+    height: 100%;
 }
 
 /*media queries*/

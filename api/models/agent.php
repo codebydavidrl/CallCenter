@@ -164,7 +164,7 @@
 
         public static function getTotalActives(){
             $connection = MySqlConnection::getConnection();//get connection
-            $query = 'select count(*) from sessions s join agents a on s.idAgent = a.id where date(startdatetime) = curdate() or s.status <> 4;';//query
+            $query = 'select count(*) from sessions as s where date(startdatetime) = curdate() and s.status <> 4;';//query
             $command = $connection->prepare($query);//prepare statement 
             $command->execute();//execute
             $command->bind_result($totalAgents);//bind results

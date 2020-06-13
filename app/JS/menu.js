@@ -73,6 +73,8 @@ function initMenu() {
 
 function showMenu() {
     const menu_icon_div = document.querySelector(`#hamburger`);
+    //Logo
+    const logo = document.getElementById("logo");
     //Get language
     const language = userInfo.language.id;
     //insert some initial content
@@ -81,6 +83,12 @@ function showMenu() {
         `<i  class="fas fa-bars large-icon ${userInfo.theme}-icon" 
         id='menu-main'></i> `
     );
+    //Insert logo
+    logo.insertAdjacentHTML(
+        "beforeend",
+        `<img src="https://datacom.global/wp-content/uploads/2018/11/datcom-global-blanco.png" alt="" srcset="" />`
+    );
+
     //main content inserted
     const menu = document.getElementById("nav");
     menu.style.display = "none";
@@ -105,10 +113,7 @@ function showInfoUser() {
 
     info_div.insertAdjacentHTML(
         "afterbegin",
-        `<div  class="mr-1 last-update">
-            <h6>last update:</h6>
-            <h6 id=last-updateHour>01:16</h6>
-        </div>
+        ` 
         <div style='margin:1rem;' class='${userInfo.theme}'>
             <div class='quicksand'>${userInfo.fullName}</div>
             <div class ='quicksand'>${userInfo.role.name}</div>
