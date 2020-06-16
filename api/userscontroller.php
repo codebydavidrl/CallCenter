@@ -1,6 +1,7 @@
 <?php
 //require files
     require_once('models/user.php');
+    require_once('./config/json.php');
     //GET
     if ($_SERVER['REQUEST_METHOD']== 'GET') {
         
@@ -8,7 +9,7 @@
             // //get all
             echo json_encode(array(
                 'status'=>0,
-                'users'=>json_decode(User::getAlltoJson())
+                'users'=>Json::listToArray(User::getAll())
             )); 
             
         }

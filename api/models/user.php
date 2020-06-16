@@ -1,7 +1,10 @@
 <?php
     require_once('mysqlconection.php');
+    require_once('exceptions/accessdeniendexception.php');
     require_once(__DIR__.'/../config/config.php');
-    
+    require_once(__DIR__.'/../config/security.php');
+    require_once(__DIR__.'/../config/json.php');
+    require_once('role.php');
 
     //attributes
 class User{
@@ -9,6 +12,8 @@ class User{
     private $name;
     private $photo;
     private $password;
+    private $theme;
+    private $language; 
 
     //gettes and setters
 
@@ -20,9 +25,16 @@ class User{
 
     public function getPhoto(){return $this->photo;}
     public function setPhoto($photo){$this->photo = $photo;}
-
     
     public function setPassword($password){$this->password = $password;}
+    
+    public function getTheme(){return $this->theme;}
+    public function setTheme($theme){$this->theme = $theme;}
+
+    public function getLanguage(){return $this->language;}
+    public function setLanguage($language){$this->language = $language;}
+
+    
 
     //constructor
 
@@ -35,19 +47,17 @@ class User{
             $this->name='';
             $this->photo='';
             $this->password='';
-
+            $this->theme='light';
+            $this->language='sp';
         }
 
-        if (func_num_args()==3) {
+        if (func_num_args()==5) {
             $this->id=$arguments[0];
             $this->name=$arguments[1];
             $this->photo=$arguments[2];
-            
-
+            $this->theme=$arguments[3];
+            $this->language=$arguments[4]; 
         }
-
-
-
     }
 
     //represent the object as string
@@ -55,23 +65,25 @@ class User{
         return json_encode(array(
             'id'=>$this->id,
             'name'=>$this->name,
-            'photo'=> Config::getFileUrl('userPhotos').$this->photo
-
+            'photo'=> Config::getFileUrl('userPhotos').$this->photo,
+            'theme'=>$this->theme,
+            'language'=>$this->language,
+            'roles'=>Json::listToArray($this->getRoles())
         ));
     }
 
     //get all
     public static function getAll(){
         $list=array();//array
-        $query='select id,name,photo from users order by name';//query
+        $query='select id,name,photo , theme ,language from users order by name';//query
         $connection= MySqlConnection::getConnection();
         $command=$connection->prepare($query);
-        $command->bind_result($id,$name,$photo);
+        $command->bind_result($id,$name,$photo ,$theme , $language);
         $command->execute();
 
         //read result
         while ($command->fetch()) {
-            array_push($list,new User($id,$name,$photo));
+            array_push($list,new User($id,$name,$photo,$theme , $language));
             
         }
         mysqli_stmt_close($command);
@@ -79,15 +91,28 @@ class User{
 
         return $list;//return array
     }
+    //get roles from current user id
+    private function getRoles(){
+        $list=array();//array
+        $query='select r.id,r.name from userRoles ur join roles r on ur.idRole = r.id where ur.idUser = ?';//query
+        $connection= MySqlConnection::getConnection();
+        $command=$connection->prepare($query);
+        $command->bind_param('s',$this->id);
+        $command->bind_result($id,$name);
+        $command->execute();
 
-    public static function getAllToJson() {
-        $jsonArray = array(); //create JSON array
-        //reaqd items
-        foreach(self::getAll() as $item) {
-            array_push($jsonArray, json_decode($item->toJson()));
+        //read result
+        while ($command->fetch()) {
+            array_push($list,new Role($id,$name));
+            
         }
-        return json_encode($jsonArray); // return JSON array
-    }
-}
+        mysqli_stmt_close($command);
+        $connection->Close();
 
+        return $list;//return array
+    }
+     
+
+ 
+} 
 ?>
