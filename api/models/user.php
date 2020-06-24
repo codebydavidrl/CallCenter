@@ -5,6 +5,7 @@
     require_once(__DIR__.'/../config/security.php');
     require_once(__DIR__.'/../config/json.php');
     require_once('role.php');
+    require_once('menuItem.php');
 
     //attributes
 class User{
@@ -50,6 +51,39 @@ class User{
             $this->theme='light';
             $this->language='sp';
         }
+        if (func_num_args()==1) {
+            $this->id='';
+            $this->name='';
+            $this->photo='';
+            $this->password='';
+            $this->theme='light';
+            $this->language='sp';
+        }
+        if (func_num_args()==2) {
+            $this->name=$arguments[0];
+            $this->password=$arguments[1];  
+            $query='select id,name,photo,theme,language from users where id =? and password = sha(?)';//query
+            $connection= MySqlConnection::getConnection();
+            $command=$connection->prepare($query);
+            $command->bind_param('ss',$arguments[0],$arguments[1]);
+            $command->bind_result($id,$name,$photo,$theme,$language);
+            $command->execute();
+
+            //read result
+            if ($command->fetch()) {
+                $this->id=$id;
+                $this->name=$name;
+                $this->photo=$photo;
+                $this->theme=$theme;
+                $this->language=$language; 
+
+            }
+            else 
+             throw new AccessDeniedException($username);
+            mysqli_stmt_close($command);
+            $connection->Close(); 
+
+        }
 
         if (func_num_args()==5) {
             $this->id=$arguments[0];
@@ -68,7 +102,9 @@ class User{
             'photo'=> Config::getFileUrl('userPhotos').$this->photo,
             'theme'=>$this->theme,
             'language'=>$this->language,
-            'roles'=>Json::listToArray($this->getRoles())
+            'menu'=>Json::listToArray(MenuItem::getUserMenu($this->id)),
+            'roles'=>Json::listToArray($this->getRoles()),
+            'token'=>Security::generateToken($this->id)
         ));
     }
 
@@ -110,6 +146,30 @@ class User{
         $connection->Close();
 
         return $list;//return array
+    }
+
+    //check if user belongs to a role
+    public static function belongsToRole($userName,$roles){  
+        $isWorthy=false;
+        $query='select idRole from userroles where idUser = ?;';//query
+        $connection= MySqlConnection::getConnection();
+        $command=$connection->prepare($query);
+        $command->bind_param('s',$userName);
+        $command->bind_result($idRole);
+        $command->execute();
+        
+        //read result
+        while ($command->fetch()) {
+            foreach ($roles as $role) {
+                if($role == $idRole){
+                    $isWorthy=true;
+                }
+            }
+        
+        } 
+        mysqli_stmt_close($command);
+        $connection->Close(); 
+        return $isWorthy;
     }
      
 
