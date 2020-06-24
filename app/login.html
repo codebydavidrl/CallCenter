@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Icon -->
+        <link
+            rel="shortcut icon"
+            href="https://img.icons8.com/fluent/96/phone.png"
+            type="image/x-icon"
+        />
+        <!--title-->
+        <title>Dashboard</title>
+        <!--For responsive Web-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="UTF-8" />
+        <!--javascript-->
+        <script src="js/menu.js"></script>
+        <script src="js/login.js"></script>
+        <script src="js/fontawesome/solid.js"></script>
+        <!--stylesheets -->
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/login.css" />
+        <link href="css/menu.css" rel="stylesheet" />
+        <link href="css/fontawesome/fontawesome.css" rel="stylesheet" />
+        <link href="css/fontawesome/solid.css" rel="stylesheet" />
+    </head>
+    <body onload="initMenu()">
+        <!--Header-->
+        <header>
+            <div id="hamburger"></div>
+            <div id="logo">
+                <!-- Logo in here -->
+            </div>
+            <div id="user"></div>
+        </header>
+
+        <!--Menu-->
+        <nav id="nav"></nav>
+
+        <!--Content-->
+        <section class="login">
+            <section class="login__container">
+                <h2>Inicia sesión</h2>
+                <form class="login__container--form">
+                    <input class="input" type="text" placeholder="Correo" />
+                    <input
+                        class="input"
+                        type="password"
+                        placeholder="Contraseña"
+                    />
+                    <button class="button">Iniciar sesión</button>
+                    <div class="login__container--remember-me">
+                        <label>
+                            <input
+                                type="checkbox"
+                                id="cbox1"
+                                value="first_checkbox"
+                            />Recuérdame
+                        </label>
+                        <a href="/">Olvidé mi contraseña</a>
+                    </div>
+                </form>
+                <section class="login__container--social-media">
+                    <div>
+                        <img src="./assets/google-icon.png" /> Inicia sesión con
+                        Google
+                    </div>
+                    <div>
+                        <img src="./assets/twitter-icon.png" /> Inicia sesión
+                        con Twitter
+                    </div>
+                </section>
+                <p class="login__container--register">
+                    No tienes ninguna cuenta <a href="">Regístrate</a>
+                </p>
+            </section>
+        </section>
+        <footer>footer</footer>
+    </body>
+</html>
