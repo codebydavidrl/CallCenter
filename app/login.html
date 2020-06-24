@@ -14,7 +14,7 @@
         <meta charset="UTF-8" />
         <!--javascript-->
         <script src="js/menu.js"></script>
-        <script src="js/login.js"></script>
+
         <script src="js/fontawesome/solid.js"></script>
         <!--stylesheets -->
         <link rel="stylesheet" href="css/style.css" />
@@ -40,12 +40,20 @@
         <section class="login">
             <section class="login__container">
                 <h2>Inicia sesión</h2>
-                <form class="login__container--form">
-                    <input class="input" type="text" placeholder="Correo" />
+                <form id="login__container" class="login__container--form">
                     <input
+                        autocomplete="off"
+                        id="name"
+                        class="input"
+                        type="text"
+                        placeholder="Name"
+                    />
+                    <input
+                        autocomplete="off"
                         class="input"
                         type="password"
-                        placeholder="Contraseña"
+                        placeholder="Password"
+                        id="password"
                     />
                     <button class="button">Iniciar sesión</button>
                     <div class="login__container--remember-me">
@@ -75,5 +83,6 @@
             </section>
         </section>
         <footer>footer</footer>
+        <script src="js/login.js"></script>
     </body>
 </html>

@@ -51,13 +51,27 @@ class User{
             $this->theme='light';
             $this->language='sp';
         }
-        if (func_num_args()==1) {
-            $this->id='';
-            $this->name='';
-            $this->photo='';
-            $this->password='';
-            $this->theme='light';
-            $this->language='sp';
+        if (func_num_args()==1) { 
+            $query='select id,name,photo,theme,language from users where id =?';//query
+            $connection= MySqlConnection::getConnection();
+            $command=$connection->prepare($query);
+            $command->bind_param('s',$arguments[0]);
+            $command->bind_result($id,$name,$photo,$theme,$language);
+            $command->execute();
+
+            //read result
+            if ($command->fetch()) {
+                $this->id=$id;
+                $this->name=$name;
+                $this->photo=$photo;
+                $this->theme=$theme;
+                $this->language=$language; 
+
+            }
+            else 
+             throw new AccessDeniedException($arguments[0]);
+            mysqli_stmt_close($command);
+            $connection->Close(); 
         }
         if (func_num_args()==2) {
             $this->name=$arguments[0];
@@ -79,7 +93,7 @@ class User{
 
             }
             else 
-             throw new AccessDeniedException($username);
+             throw new AccessDeniedException($arguments[0]);
             mysqli_stmt_close($command);
             $connection->Close(); 
 

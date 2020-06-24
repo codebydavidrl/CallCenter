@@ -2,6 +2,7 @@
 
     //headers
     header('Access-Control-Allow-Origin: *');
+    header('Access-Control-Allow-Headers: *');
     //allow method
     header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
     $headers = getallheaders();
