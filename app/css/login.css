@@ -26,9 +26,7 @@ body {
     flex-direction: column;
     justify-content: center;
     padding: 0px 30px;
-    min-height: calc(
-        100vh - 200px
-    ); /* El ancho será igual al tamaño de todo el height menos 200px (100px del header + 100px del footer) */
+    min-height: 100vh; /* El ancho será igual al tamaño de todo el height menos 200px (100px del header + 100px del footer) */
 }
 
 .login__container {
@@ -95,26 +93,6 @@ body {
 }
 
 .login__container--register a:hover {
-    text-decoration: underline;
-}
-
-.footer {
-    align-items: center;
-    background-color: #8f57fd;
-    display: flex;
-    height: 100px;
-    width: 100%;
-}
-
-.footer a {
-    color: white;
-    cursor: pointer;
-    font-size: 14px;
-    padding-left: 30px;
-    text-decoration: none;
-}
-
-.footer a:hover {
     text-decoration: underline;
 }
 

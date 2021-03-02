@@ -40,12 +40,11 @@ function showMenu() {
     );
 
     //main content inserted
-    const menu = document.getElementById("nav");
-    menu.style.display = "none";
+    nav.style.display = "none";
     userInfo.menu.forEach((option) => {
-        menu.insertAdjacentHTML(
+        nav.insertAdjacentHTML(
             "beforeend",
-            `<i style='margin-left: 1rem;' class="fas fa-${option.icon} icon ${
+            `<i class="fas fa-${option.icon} icon ${
                 userInfo.theme
             }-icon menu-item"> &nbsp <span class="quicksand">
             ${option["title" + language]}</span></i>  `
@@ -57,9 +56,9 @@ function showMenu() {
         }
         //console.log(option);
     });
-    menu.insertAdjacentHTML(
+    nav.insertAdjacentHTML(
         "beforeend",
-        `<i style='margin-left: 1rem;' id='btn-logout' class="fas fa-sign-out-alt icon ${userInfo.theme}-icon menu-item"> &nbsp <span class="quicksand" > 
+        `<i  id='btn-logout' class="fas fa-sign-out-alt icon ${userInfo.theme}-icon menu-item"> &nbsp <span class="quicksand" > 
     Log out</span></i> `
     );
     //logout

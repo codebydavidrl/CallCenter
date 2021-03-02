@@ -43,8 +43,7 @@ icon {
 .menu-item {
     width: 100%;
     height: 35px;
-    margin-top: 1rem;
-    margin-left: 1px;
+    padding: 0.1rem 0.1rem 0.1rem 1rem;
 }
 .menu-hamburger {
     width: 10%;
