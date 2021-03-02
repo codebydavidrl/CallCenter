@@ -1,25 +1,26 @@
-const form = document.getElementById("login__container");
-const API = "http://localhost/CALLCENTER2020/api/users/";
 sessionStorage = null;
-form.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    const name = document.getElementById("name").value;
-    const password = document.getElementById("password").value;
-    //isLogged has user's information
-    const isLogged = await login(name, password);
-    if (isLogged) {
-        handleHasLogged();
-    } else {
-        //invalid user
-        alert("Invalid user or password");
-    }
-});
+function init() {
+    const form = document.getElementById("login__container");
+    form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const name = document.getElementById("name").value;
+        const password = document.getElementById("password").value;
+        //isLogged has user's information
+        const isLogged = await login(name, password);
+        if (isLogged) {
+            handleHasLogged();
+        } else {
+            //invalid user
+            alert("Invalid user or password");
+        }
+    });
+}
 
 //callback execute if receive information
 //and it's all goood
 const login = async (name, password) => {
     try {
-        const request = await fetch(`${API}login/`, {
+        const request = await fetch(`${config.localHost}/users/login/`, {
             method: "GET",
             headers: {
                 username: name,
@@ -40,7 +41,7 @@ const login = async (name, password) => {
 
 const getUserInfo = async (error, id, token) => {
     if (error) return;
-    const request = await fetch(`${API}${id}`, {
+    const request = await fetch(`${config.localHost}/users/${id}`, {
         header: {
             username: id,
             token: token,
