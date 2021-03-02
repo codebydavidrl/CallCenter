@@ -51,9 +51,7 @@ const getUserInfo = async (error, id, token) => {
 };
 
 const handleHasLogged = () => {
-    const user = JSON.parse(sessionStorage.userInfo);
-    console.log(user)
-    debugger
+    sessionStorage.loggedIn = true;
     //redirecting them to home
-    setTimeout(() => (window.location = "./index.html"), 1500); 
+    window.location = "./index.html";
 };

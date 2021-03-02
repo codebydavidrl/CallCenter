@@ -3,23 +3,30 @@ let toggle = false;
 const BODY_ID = "body";
 
 function initMenu() {
-    if (sessionStorage.loggedIn == true) {
+    const isLogged = Boolean(sessionStorage.loggedIn);
+    if (isLogged == true) {
         userInfo = JSON.parse(sessionStorage.userInfo);
         showMenu();
         showInfoUser();
         return;
     }
+    //redirect to login
     const nav = document.querySelector("#nav");
     nav.style.display = "none";
     window.location = "login.html";
 }
 
 function showMenu() {
+    //Div menu
+    const nav = document.querySelector("#nav");
+    //icon hamburger
     const menu_icon_div = document.querySelector(`#hamburger`);
     //Logo
     const logo = document.getElementById("logo");
     //Get language
-    const language = "English";
+    const language = "en";
+    //add current class to div
+    nav.classList.add(userInfo.theme);
     //insert some initial content
     menu_icon_div.insertAdjacentHTML(
         "afterbegin",
@@ -45,10 +52,10 @@ function showMenu() {
         );
         if (option.subOptions) {
             option.subOptions.forEach((subOption) => {
-                console.log(subOption);
+                //console.log(subOption);
             });
         }
-        console.log(option);
+        //console.log(option);
     });
     menu.insertAdjacentHTML(
         "beforeend",

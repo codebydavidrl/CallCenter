@@ -1,6 +1,6 @@
 var hours = [];
 async function init2() {
-    console.log("Initi page..");
+    console.log("Init page..");
     //Prepareing now information
     await prepareNowSection();
     //Preparing charts
@@ -23,7 +23,6 @@ async function prepareNowSection() {
 }
 //updates agents label on dashboard
 function updateAgents(agents) {
-    console.log("Updating now agents information.");
     const active_label = document.getElementById("agents-active-label");
     const available_label = document.getElementById("agents-available-label");
 
@@ -41,7 +40,6 @@ function updateCalls(calls) {
 }
 //Creates their charts
 function updateAverageTime(avgTime) {
-    console.log("Updating now average time.");
     const { handle, wait } = avgTime;
     if (handle.time == null) {
         handle.time = "00:00";
@@ -77,7 +75,7 @@ function updateAverageTime(avgTime) {
 }
 //get now information
 async function getNowInfo() {
-    const request = await fetch(`${config.localHost}/nows/`);
+    const request = await fetch(`${config.localHost}/nows/`, (Headers = {}));
     const json = await request.json();
     const { now } = json;
     return now;
