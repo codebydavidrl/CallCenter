@@ -174,4 +174,8 @@ const config = {
             },
         ],
     },
+    headers: {
+        username: JSON.parse(sessionStorage.userInfo).id,
+        token: JSON.parse(sessionStorage.userInfo).token,
+    },
 };

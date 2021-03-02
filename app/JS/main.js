@@ -1,6 +1,7 @@
 var hours = [];
 async function init2() {
     console.log("Init page..");
+    console.log(JSON.parse(sessionStorage.userInfo));
     //Prepareing now information
     await prepareNowSection();
     //Preparing charts
@@ -75,7 +76,12 @@ function updateAverageTime(avgTime) {
 }
 //get now information
 async function getNowInfo() {
-    const request = await fetch(`${config.localHost}/nows/`, (Headers = {}));
+    const request = await fetch(`${config.localHost}/nows/`, {
+        headers: {
+            username: config.headers.username,
+            token: config.headers.token,
+        },
+    });
     const json = await request.json();
     const { now } = json;
     return now;
@@ -230,7 +236,12 @@ function drawColumnChart(settings) {
 
 //get information from API
 async function getData() {
-    const data = await fetch(`${config.localHost}/todays/`);
+    const data = await fetch(`${config.localHost}/todays/`, {
+        headers: {
+            username: config.headers.username,
+            token: config.headers.token,
+        },
+    });
     const json = await data.json();
     return json;
 }
