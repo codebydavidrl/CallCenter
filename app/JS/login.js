@@ -28,7 +28,8 @@ const login = async (name, password) => {
         });
         const { user, status } = await request.json();
         if (status === 200) {
-            sessionStorage.currentUser = JSON.stringify(user);
+            sessionStorage.loggedIn = true;
+            sessionStorage.userInfo = JSON.stringify(user);
             return true;
         } else throw new Error(`${status.errorMessage}. Error Code: ${status}`);
     } catch (error) {
@@ -50,8 +51,9 @@ const getUserInfo = async (error, id, token) => {
 };
 
 const handleHasLogged = () => {
-    const user = JSON.parse(sessionStorage.currentUser);
+    const user = JSON.parse(sessionStorage.userInfo);
+    console.log(user)
+    debugger
     //redirecting them to home
-    setTimeout(() => (window.location = "./index.html"), 1500);
-    alert(`Bienvenido a Datacom.Global ${user.name}`);
+    setTimeout(() => (window.location = "./index.html"), 1500); 
 };

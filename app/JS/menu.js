@@ -1,74 +1,17 @@
-var userInfo = {
-    id: "1002",
-    userName: "mjones",
-    fullName: "Mary Jones",
-    photo: "users/1002.png",
-    role: {
-        id: "SA",
-        name: "System Administrator",
-    },
-    language: {
-        id: "EN",
-        name: "English",
-    },
-    theme: "dark",
-    menuOptions: [
-        {
-            icon: "home",
-            title: {
-                EN: "Home",
-                SP: "Inicio",
-            },
-            url: "index.html",
-        },
-        {
-            icon: "users",
-            title: {
-                EN: "Agents",
-                SP: "Agentes",
-            },
-            url: "agents.html",
-        },
-        {
-            icon: "phone",
-            title: {
-                EN: "Calls",
-                SP: "Llamadas",
-            },
-            url: "calls.html",
-        },
-        {
-            icon: "chart-bar",
-            title: {
-                EN: "Charts",
-                SP: "Gráficas",
-            },
-            url: "charts.html",
-        },
-        {
-            icon: "wrench",
-            title: {
-                EN: "Settings",
-                SP: "Configuración",
-            },
-            url: "settings.html",
-        },
-        {
-            icon: "sign-out-alt",
-            title: {
-                EN: "Logout",
-                SP: "Cerrar Sesión",
-            },
-            url: "logout.html",
-        },
-    ],
-};
+var userInfo = {};
 let toggle = false;
 const BODY_ID = "body";
 
 function initMenu() {
-    showMenu();
-    showInfoUser();
+    if (sessionStorage.loggedIn == true) {
+        userInfo = JSON.parse(sessionStorage.userInfo);
+        showMenu();
+        showInfoUser();
+        return;
+    }
+    const nav = document.querySelector("#nav");
+    nav.style.display = "none";
+    window.location = "login.html";
 }
 
 function showMenu() {
@@ -76,7 +19,7 @@ function showMenu() {
     //Logo
     const logo = document.getElementById("logo");
     //Get language
-    const language = userInfo.language.id;
+    const language = "English";
     //insert some initial content
     menu_icon_div.insertAdjacentHTML(
         "afterbegin",
@@ -92,12 +35,28 @@ function showMenu() {
     //main content inserted
     const menu = document.getElementById("nav");
     menu.style.display = "none";
-    userInfo.menuOptions.forEach((option) => {
+    userInfo.menu.forEach((option) => {
         menu.insertAdjacentHTML(
             "beforeend",
-            `<i style='margin-left: 1rem;' class="fas fa-${option.icon} icon ${userInfo.theme}-icon menu-item"> &nbsp <span class="quicksand">${option.title[language]}</span></i>  `
+            `<i style='margin-left: 1rem;' class="fas fa-${option.icon} icon ${
+                userInfo.theme
+            }-icon menu-item"> &nbsp <span class="quicksand">
+            ${option["title" + language]}</span></i>  `
         );
+        if (option.subOptions) {
+            option.subOptions.forEach((subOption) => {
+                console.log(subOption);
+            });
+        }
+        console.log(option);
     });
+    menu.insertAdjacentHTML(
+        "beforeend",
+        `<i style='margin-left: 1rem;' id='btn-logout' class="fas fa-sign-out-alt icon ${userInfo.theme}-icon menu-item"> &nbsp <span class="quicksand" > 
+    Log out</span></i> `
+    );
+    //logout
+    handleLogout();
     //menu event listener
     hm = document.getElementById("menu-main");
     hm.addEventListener("click", () => {
@@ -106,17 +65,16 @@ function showMenu() {
 }
 
 function showInfoUser() {
-    const img_src = `${window.location.pathname}/../${userInfo.photo}`;
+    const img_src = `${userInfo.photo}`;
     const info_div = document.getElementById("user");
     const header = document.getElementsByTagName("header");
     header[0].classList.add(`${userInfo.theme}`);
-
     info_div.insertAdjacentHTML(
         "afterbegin",
         ` 
         <div style='margin:1rem;' class='${userInfo.theme}'>
-            <div class='quicksand'>${userInfo.fullName}</div>
-            <div class ='quicksand'>${userInfo.role.name}</div>
+            <div class='quicksand'>${userInfo.name}</div>
+            <div class ='quicksand'>${userInfo.roles[0].name}</div>
         </div>
         <div style='margin:1rem;'>
             <div class=photo><img class='photo' src='${img_src}' width='50px' /></div>
@@ -133,4 +91,15 @@ function toggleMenu() {
     }
 
     toggle = !toggle;
+}
+
+function handleLogout() {
+    const logout_btn = document.querySelector("#btn-logout");
+
+    logout_btn.addEventListener("click", () => {
+        sessionStorage.loggedIn = null;
+        sessionStorage.userInfo = null;
+
+        window.location = "login.html";
+    });
 }

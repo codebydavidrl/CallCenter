@@ -48,13 +48,13 @@ class MenuItem{
     public function toJson(){
         return json_encode(array(
             'id'=>$this->id,
-            'titleSpanish'=>$this->titleSpanish,
-            'titleEnglish'=>$this->titleEnglish,
+            'titleesp'=>$this->titleSpanish,
+            'titleen'=>$this->titleEnglish,
             'type'=>$this->type,
             'icon'=>$this->icon,
             'url'=>$this->url,
             'idparent'=>$this->idparent,
-            'children'=>Json::listToArray($this->getChildren())
+            'subOptions'=>Json::listToArray($this->getChildren())
         ));
     }
     
